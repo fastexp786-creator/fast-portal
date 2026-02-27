@@ -8,17 +8,13 @@ export default function AuthRegisterPage() {
   const [activeTab, setActiveTab] = useState<"seeker" | "vendor" | "admin">("seeker");
 
   const loginWithGoogle = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: typeof window !== "undefined" ? window.location.origin : undefined,
-      },
-    });
+    // Google OAuth temporarily disabled - enable in Supabase dashboard
+    alert("Google login will be available soon. Please use email registration for now.");
   };
 
   const loginWithApple = async () => {
-    // Apple login implementation would go here
-    console.log("Apple login clicked");
+    // Apple login temporarily disabled
+    alert("Apple login will be available soon. Please use email registration for now.");
   };
 
   return (

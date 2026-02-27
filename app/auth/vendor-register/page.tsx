@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 
@@ -24,8 +24,12 @@ export default function VendorRegistrationPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [captcha, setCaptcha] = useState(() => generateCaptcha());
+  const [captcha, setCaptcha] = useState({ question: "", answer: 0 });
   const [captchaAnswer, setCaptchaAnswer] = useState("");
+
+  useEffect(() => {
+    setCaptcha(generateCaptcha());
+  }, []);
 
   const canSubmit = useMemo(() => {
     return (

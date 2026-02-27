@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
 function slugify(input: string) {
@@ -31,9 +31,13 @@ export default function SeekerRegistrationPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [progress, setProgress] = useState<number>(0);
-  const [captcha, setCaptcha] = useState(() => generateCaptcha());
+  const [captcha, setCaptcha] = useState({ question: "", answer: 0 });
   const [captchaAnswer, setCaptchaAnswer] = useState("");
   const progressTimer = useRef<number | null>(null);
+
+  useEffect(() => {
+    setCaptcha(generateCaptcha());
+  }, []);
 
   const canSubmit = useMemo(() => {
     return (
