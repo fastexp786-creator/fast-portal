@@ -43,24 +43,19 @@ export default function Footer() {
         <div className="footer-col">
           <h4 className="footer-title">Popular Countries</h4>
           <div className="footer-links">
-            <a href="#">
-              <i className="fas fa-chevron-right" /> Saudi Arabia
-            </a>
-            <a href="#">
-              <i className="fas fa-chevron-right" /> United Arab Emirates
-            </a>
-            <a href="#">
-              <i className="fas fa-chevron-right" /> Qatar
-            </a>
-            <a href="#">
+            <Link href="/jobs/saudi-arabia-jobs"><i className="fas fa-chevron-right" /> Saudi Arabia</Link>
+            <Link href="/jobs/uae-jobs"><i className="fas fa-chevron-right" /> United Arab Emirates</Link>
+            <Link href="/jobs/qatar-jobs"><i className="fas fa-chevron-right" /> Qatar</Link>
+            <Link href="/jobs/kuwait-jobs"><i className="fas fa-chevron-right" /> Kuwait</Link>
+            <Link href="/jobs/oman-jobs"><i className="fas fa-chevron-right" /> Oman</Link>
+            <Link href="/jobs/bahrain-jobs"><i className="fas fa-chevron-right" /> Bahrain</Link>
+            <Link href={{ pathname: "/find-jobs", query: { country: "South Korea" } }}>
               <i className="fas fa-chevron-right" /> South Korea
-            </a>
-            <a href="#">
+            </Link>
+            <Link href={{ pathname: "/find-jobs", query: { country: "Japan" } }}>
               <i className="fas fa-chevron-right" /> Japan
-            </a>
-            <a href="#">
-              <i className="fas fa-chevron-right" /> Malaysia
-            </a>
+            </Link>
+            <Link href="/jobs/malaysia-jobs"><i className="fas fa-chevron-right" /> Malaysia</Link>
           </div>
         </div>
 

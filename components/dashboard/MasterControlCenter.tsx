@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import {
@@ -69,6 +70,7 @@ type Application = {
 };
 
 export default function MasterControlCenter() {
+  const t = useTranslations("dashboard");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [sessionEmail, setSessionEmail] = useState<string | null>(null);
@@ -429,15 +431,14 @@ export default function MasterControlCenter() {
           <div>
             <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-slate-400">
               <ShieldCheck className="h-4 w-4 text-amber-400" />
-              MASTER CONTROL CENTER
+              {t("mccBadge")}
             </div>
             <h1 className="mt-2 flex items-center gap-3 text-2xl font-black tracking-tight text-amber-300 md:text-3xl">
               <LayoutDashboard className="h-7 w-7 text-amber-400" />
-              Worldwide Job & Travel Ops
+              {t("mccTitle")}
             </h1>
             <p className="mt-1 max-w-xl text-sm text-slate-400">
-              Centralized command for users, jobs, revenue channels, and smart
-              automation across your global portal.
+              {t("mccTagline")}
             </p>
           </div>
           <div className="rounded-2xl border border-slate-700/70 bg-slate-900/60 px-4 py-3 text-xs shadow-lg shadow-amber-500/10">
@@ -446,8 +447,7 @@ export default function MasterControlCenter() {
               <span className="font-semibold">{currentRoleLabel}</span>
             </div>
             <p className="mt-1 text-[11px] text-slate-400">
-              Auth wiring is pending; access controls will respect Supabase
-              sessions once enabled.
+              {t("authNote")}
             </p>
           </div>
         </header>

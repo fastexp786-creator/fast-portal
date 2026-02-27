@@ -1,0 +1,69 @@
+{
+  "header": {
+    "home": "الرئيسية",
+    "jobs": "ابحث عن وظائف",
+    "dashboard": "لوحة التحكم",
+    "login": "تسجيل الدخول",
+    "register": "تسجيل",
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج"
+  },
+  "auth": {
+    "welcome": "مرحبًا بك في Fast Job Career",
+    "description": "ربط المواهب العالمية بأفضل أصحاب العمل في العالم",
+    "seeker": "باحث عن عمل",
+    "vendor": "صاحب العمل/البائع",
+    "admin": "المسؤول",
+    "signup": "اشتراك",
+    "signin": "تسجيل الدخول",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "createAccount": "إنشاء حساب",
+    "alreadyHaveAccount": "لديك حساب بالفعل؟",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "captcha": "رمز الأمان",
+    "enterCaptcha": "أدخل الرمز المعروض"
+  },
+  "dashboard": {
+    "welcome": "مرحبًا بك في لوحة التحكم",
+    "overview": "نظرة عامة",
+    "jobs": "الوظائف",
+    "applications": "التطبيقات",
+    "messages": "الرسائل",
+    "settings": "الإعدادات",
+    "profile": "الملف الشخصي",
+    "stats": "الإحصائيات",
+    "recentActivity": "النشاط الأخير",
+    "quickActions": "إجراءات سريعة"
+  },
+  "footer": {
+    "description": "تواصل مع أصحاب العمل في الخارج وابحث عن وظيفة أحلامك. لقد ساعدنا الآلاف من الباحثين عن عمل في العثور على فرص دولية.",
+    "quickLinks": "روابط سريعة",
+    "services": "الخدمات",
+    "contact": "اتصل بنا",
+    "rights": "جميع الحقوق محفوظة"
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ ما",
+    "success": "العملية ناجحة",
+    "tryAgain": "حاول مرة أخرى",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "view": "عرض",
+    "search": "بحث",
+    "filter": "تصفية",
+    "sort": "ترتيب",
+    "apply": "تطبيق",
+    "submit": "إرسال",
+    "next": "التالي",
+    "previous": "السابق",
+    "viewAll": "عرض الكل",
+    "viewMore": "عرض المزيد",
+    "readMore": "اقرأ المزيد"
+  }
+}

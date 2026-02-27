@@ -14,6 +14,13 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* RTL base support */
+html[dir="rtl"] { direction: rtl; }
+body.rtl { direction: rtl; }
+:where([dir="rtl"]) input, :where([dir="rtl"]) textarea, :where([dir="rtl"]) select { text-align: right; }
+:where([dir="rtl"]) .text-start { text-align: right !important; }
+:where([dir="rtl"]) .text-end { text-align: left !important; }
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -184,6 +191,8 @@ section { padding: 70px 5%; }
 .info-card { background: var(--card-bg); padding: 40px 25px; border-radius: 15px; text-align: center; border: 1px solid #eee; text-decoration: none; color: inherit; transition: 0.4s; }
 .info-card i { font-size: 45px; color: var(--danger); margin-bottom: 20px; }
 .info-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+.info-card h3 { margin: 0 0 8px 0; font-size: 18px; font-weight: 800; color: var(--primary); }
+.info-card p { margin: 0; font-size: 14px; color: #666; }
 
 /* --- 6. JOBS FEED --- */
 .jobs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }

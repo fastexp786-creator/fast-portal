@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from 'next-intl/plugin';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 let supabaseHost: string | null = null;
@@ -17,10 +18,12 @@ if (supabaseHost) {
   patterns.push({ protocol: "https", hostname: supabaseHost, pathname: "/**" });
 }
 
+const withNextIntl = createNextIntlPlugin('./i18n.ts');
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: patterns,
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

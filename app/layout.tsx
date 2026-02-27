@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { SITE_URL } from "@/lib/constants";
 import GlobalLayout from "@/components/GlobalLayout";
 import "./globals.css";
+import { NextIntlClientProvider } from "next-intl";
+import enMessages from "@/messages/en.json";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -65,7 +67,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <GlobalLayout>{children}</GlobalLayout>
+        <NextIntlClientProvider locale="en" messages={enMessages as any}>
+          <GlobalLayout>{children}</GlobalLayout>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

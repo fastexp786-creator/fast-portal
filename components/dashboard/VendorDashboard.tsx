@@ -42,6 +42,20 @@ export default function VendorDashboard() {
   const [applications, setApplications] = useState<Application[]>([]);
   const [showJobForm, setShowJobForm] = useState(false);
   const [editingJob, setEditingJob] = useState<JobRow | null>(null);
+  const [posting, setPosting] = useState(false);
+  const [form, setForm] = useState({
+    title: "",
+    company: "",
+    job_type: "",
+    category: "",
+    country: "",
+    location: "",
+    apply_url: "",
+    expiry_date: "",
+    description: ""
+  });
+  const [formError, setFormError] = useState<string | null>(null);
+  const [formSuccess, setFormSuccess] = useState<string | null>(null);
 
   useEffect(() => {
     loadVendorData();
@@ -56,6 +70,9 @@ export default function VendorDashboard() {
       const userEmail = user?.email;
 
       if (!userEmail) return;
+
+      // Prefill company with vendor email (can be updated to profile company)
+      setForm((f) => ({ ...f, company: userEmail }));
 
       // Load vendor's jobs
       const { data: jobsData } = await supabase
@@ -105,6 +122,75 @@ export default function VendorDashboard() {
       console.error("Error loading vendor data:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const resetForm = () => {
+    setForm({
+      title: "",
+      company: form.company || "",
+      job_type: "",
+      category: "",
+      country: "",
+      location: "",
+      apply_url: "",
+      expiry_date: "",
+      description: ""
+    });
+    setFormError(null);
+    setFormSuccess(null);
+  };
+
+  const postJob = async () => {
+    setFormError(null);
+    setFormSuccess(null);
+    // Basic validation
+    if (!form.title.trim()) {
+      setFormError("Title is required");
+      return;
+    }
+    if (!form.location.trim() && !form.country.trim()) {
+      setFormError("Location or country is required");
+      return;
+    }
+    if (!form.description.trim()) {
+      setFormError("Description is required");
+      return;
+    }
+
+    try {
+      setPosting(true);
+      const { data: { user } } = await supabase.auth.getUser();
+      const userEmail = user?.email ?? form.company || null;
+
+      const payload = {
+        title: form.title.trim(),
+        company: userEmail,
+        job_type: form.job_type || null,
+        category: form.category || null,
+        country: form.country || null,
+        location: form.location || null,
+        apply_url: form.apply_url || null,
+        expiry_date: form.expiry_date || null,
+        description: form.description.trim(),
+        status: "Pending",
+        job_source: "vendor",
+        is_active: false
+      } as Partial<JobRow>;
+
+      const { error } = await supabase.from(JOBS_TABLE).insert(payload);
+      if (error) throw error;
+
+      setFormSuccess("Job posted for review");
+      setTimeout(() => {
+        setShowJobForm(false);
+        resetForm();
+        loadVendorData();
+      }, 800);
+    } catch (e) {
+      setFormError(e instanceof Error ? e.message : "Failed to post job");
+    } finally {
+      setPosting(false);
     }
   };
 
@@ -262,28 +348,86 @@ export default function VendorDashboard() {
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
             <div className="bg-white rounded-lg p-6 w-full max-w-md">
               <h2 className="text-xl font-semibold mb-4">Post New Job</h2>
-              <div className="space-y-4">
+              <div className="space-y-3">
+                {formError && <p className="text-sm text-red-600">{formError}</p>}
+                {formSuccess && <p className="text-sm text-green-600">{formSuccess}</p>}
                 <input
                   type="text"
-                  placeholder="Job Title"
+                  placeholder="Job Title *"
                   className="w-full p-2 border rounded"
+                  value={form.title}
+                  onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
+                />
+                <div className="grid grid-cols-2 gap-2">
+                  <input
+                    type="text"
+                    placeholder="Company / Email"
+                    className="w-full p-2 border rounded"
+                    value={form.company}
+                    onChange={(e) => setForm((f) => ({ ...f, company: e.target.value }))}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Job Type (Full-time)"
+                    className="w-full p-2 border rounded"
+                    value={form.job_type}
+                    onChange={(e) => setForm((f) => ({ ...f, job_type: e.target.value }))}
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <input
+                    type="text"
+                    placeholder="Country"
+                    className="w-full p-2 border rounded"
+                    value={form.country}
+                    onChange={(e) => setForm((f) => ({ ...f, country: e.target.value }))}
+                  />
+                  <input
+                    type="text"
+                    placeholder="City / Location"
+                    className="w-full p-2 border rounded"
+                    value={form.location}
+                    onChange={(e) => setForm((f) => ({ ...f, location: e.target.value }))}
+                  />
+                </div>
+                <input
+                  type="url"
+                  placeholder="Apply URL"
+                  className="w-full p-2 border rounded"
+                  value={form.apply_url}
+                  onChange={(e) => setForm((f) => ({ ...f, apply_url: e.target.value }))}
                 />
                 <input
-                  type="text"
-                  placeholder="Location"
+                  type="date"
+                  placeholder="Expiry Date"
                   className="w-full p-2 border rounded"
+                  value={form.expiry_date}
+                  onChange={(e) => setForm((f) => ({ ...f, expiry_date: e.target.value }))}
                 />
                 <textarea
-                  placeholder="Job Description"
+                  placeholder="Job Description *"
                   className="w-full p-2 border rounded"
-                  rows={4}
+                  rows={5}
+                  value={form.description}
+                  onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
                 />
                 <div className="flex gap-2">
-                  <button className="flex-1 bg-gray-500 text-white py-2 rounded">
+                  <button
+                    onClick={() => {
+                      setShowJobForm(false);
+                      resetForm();
+                    }}
+                    className="flex-1 bg-gray-500 text-white py-2 rounded"
+                    disabled={posting}
+                  >
                     Cancel
                   </button>
-                  <button className="flex-1 bg-blue-600 text-white py-2 rounded">
-                    Post Job
+                  <button
+                    onClick={postJob}
+                    className="flex-1 bg-blue-600 text-white py-2 rounded disabled:opacity-60"
+                    disabled={posting}
+                  >
+                    {posting ? "Posting..." : "Post Job"}
                   </button>
                 </div>
               </div>

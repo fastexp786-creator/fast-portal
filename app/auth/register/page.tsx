@@ -3,18 +3,20 @@
 import { useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import { useTranslations } from "next-intl";
 
 export default function AuthRegisterPage() {
+  const t = useTranslations("auth");
   const [activeTab, setActiveTab] = useState<"seeker" | "vendor" | "admin">("seeker");
 
   const loginWithGoogle = async () => {
     // Google OAuth temporarily disabled - enable in Supabase dashboard
-    alert("Google login will be available soon. Please use email registration for now.");
+    alert(t("googleDisabledNote"));
   };
 
   const loginWithApple = async () => {
     // Apple login temporarily disabled
-    alert("Apple login will be available soon. Please use email registration for now.");
+    alert(t("appleDisabledNote"));
   };
 
   return (
@@ -23,9 +25,9 @@ export default function AuthRegisterPage() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-black bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
-            Join Fast Job Career
+            {t("joinTitle")}
           </h1>
-          <p className="mt-2 text-slate-300">Choose your role and get started</p>
+          <p className="mt-2 text-slate-300">{t("chooseRole")}</p>
         </div>
 
         {/* Tab Navigation */}
@@ -41,7 +43,7 @@ export default function AuthRegisterPage() {
                     : "text-slate-300 hover:text-white"
                 }`}
               >
-                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                {tab === "seeker" ? t("seeker") : tab === "vendor" ? t("vendor") : t("admin")}
               </button>
             ))}
           </div>
@@ -59,8 +61,8 @@ export default function AuthRegisterPage() {
               <div className="w-16 h-16 bg-amber-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
                 <span className="text-2xl">👤</span>
               </div>
-              <h3 className="text-xl font-bold text-amber-300">Job Seeker</h3>
-              <p className="text-slate-400 text-sm mt-1">Find your dream job</p>
+              <h3 className="text-xl font-bold text-amber-300">{t("seeker")}</h3>
+              <p className="text-slate-400 text-sm mt-1">{t("seekerTagline")}</p>
             </div>
 
             {/* Social Login Buttons */}
@@ -70,14 +72,14 @@ export default function AuthRegisterPage() {
                 className="w-full flex items-center justify-center gap-2 bg-white text-slate-900 rounded-lg px-4 py-3 text-sm font-semibold hover:bg-slate-100 transition-colors"
               >
                 <span className="w-5 h-5">🔍</span>
-                Continue with Google
+                {t("continueGoogle")}
               </button>
               <button
                 onClick={loginWithApple}
                 className="w-full flex items-center justify-center gap-2 bg-black text-white rounded-lg px-4 py-3 text-sm font-semibold hover:bg-slate-800 transition-colors"
               >
                 <span className="w-5 h-5">🍎</span>
-                Continue with Apple
+                {t("continueApple")}
               </button>
             </div>
 
@@ -87,7 +89,7 @@ export default function AuthRegisterPage() {
                 <div className="w-full border-t border-slate-600"></div>
               </div>
               <div className="relative flex justify-center text-xs">
-                <span className="bg-slate-800 px-2 text-slate-400">or register with email</span>
+                <span className="bg-slate-800 px-2 text-slate-400">{t("orRegisterEmail")}</span>
               </div>
             </div>
 
@@ -96,7 +98,7 @@ export default function AuthRegisterPage() {
               href="/auth/register/seeker"
               className="block w-full text-center bg-amber-500 text-slate-900 rounded-lg px-4 py-3 text-sm font-semibold hover:bg-amber-400 transition-colors"
             >
-              Register as Seeker
+              {t("registerAsSeeker")}
             </Link>
           </div>
 
@@ -110,8 +112,8 @@ export default function AuthRegisterPage() {
               <div className="w-16 h-16 bg-green-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
                 <span className="text-2xl">🏢</span>
               </div>
-              <h3 className="text-xl font-bold text-green-300">Vendor</h3>
-              <p className="text-slate-400 text-sm mt-1">Post jobs and hire talent</p>
+              <h3 className="text-xl font-bold text-green-300">{t("vendor")}</h3>
+              <p className="text-slate-400 text-sm mt-1">{t("vendorTagline")}</p>
             </div>
 
             {/* Social Login Buttons */}
@@ -121,14 +123,14 @@ export default function AuthRegisterPage() {
                 className="w-full flex items-center justify-center gap-2 bg-white text-slate-900 rounded-lg px-4 py-3 text-sm font-semibold hover:bg-slate-100 transition-colors"
               >
                 <span className="w-5 h-5">🔍</span>
-                Continue with Google
+                {t("continueGoogle")}
               </button>
               <button
                 onClick={loginWithApple}
                 className="w-full flex items-center justify-center gap-2 bg-black text-white rounded-lg px-4 py-3 text-sm font-semibold hover:bg-slate-800 transition-colors"
               >
                 <span className="w-5 h-5">🍎</span>
-                Continue with Apple
+                {t("continueApple")}
               </button>
             </div>
 
@@ -138,7 +140,7 @@ export default function AuthRegisterPage() {
                 <div className="w-full border-t border-slate-600"></div>
               </div>
               <div className="relative flex justify-center text-xs">
-                <span className="bg-slate-800 px-2 text-slate-400">or register with email</span>
+                <span className="bg-slate-800 px-2 text-slate-400">{t("orRegisterEmail")}</span>
               </div>
             </div>
 
@@ -147,7 +149,7 @@ export default function AuthRegisterPage() {
               href="/auth/vendor-register"
               className="block w-full text-center bg-green-500 text-slate-900 rounded-lg px-4 py-3 text-sm font-semibold hover:bg-green-400 transition-colors"
             >
-              Register as Vendor
+              {t("registerAsVendor")}
             </Link>
           </div>
 
@@ -161,14 +163,14 @@ export default function AuthRegisterPage() {
               <div className="w-16 h-16 bg-purple-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
                 <span className="text-2xl">⚙️</span>
               </div>
-              <h3 className="text-xl font-bold text-purple-300">Admin</h3>
-              <p className="text-slate-400 text-sm mt-1">Manage platform operations</p>
+              <h3 className="text-xl font-bold text-purple-300">{t("admin")}</h3>
+              <p className="text-slate-400 text-sm mt-1">{t("adminTagline")}</p>
             </div>
 
             {/* Admin Note */}
             <div className="bg-slate-700/50 rounded-lg p-4 mb-6">
               <p className="text-sm text-slate-300 text-center">
-                Admin access is by invitation only. Contact support for access.
+                {t("adminInvitationNote")}
               </p>
             </div>
 
@@ -177,7 +179,7 @@ export default function AuthRegisterPage() {
               href="/auth/login"
               className="block w-full text-center bg-purple-500 text-white rounded-lg px-4 py-3 text-sm font-semibold hover:bg-purple-400 transition-colors"
             >
-              Admin Login
+              {t("adminLogin")}
             </Link>
           </div>
         </div>
@@ -185,7 +187,7 @@ export default function AuthRegisterPage() {
         {/* Captcha Note */}
         <div className="text-center mt-8">
           <p className="text-sm text-slate-400">
-            All registrations include CAPTCHA verification for security
+            {t("captchaNote")}
           </p>
         </div>
       </div>

@@ -5,6 +5,8 @@ import { TopBar } from "@/components/Header";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Newsletter from "@/components/Newsletter";
+import { NextIntlClientProvider } from "next-intl";
+import enMessages from "@/messages/en.json";
 
 export default function GlobalLayout({
   children,
@@ -14,7 +16,9 @@ export default function GlobalLayout({
   return (
     <AuthModalProvider>
       <TopBar />
-      <Header />
+      <NextIntlClientProvider locale="en" messages={enMessages as any}>
+        <Header />
+      </NextIntlClientProvider>
       {children}
       <Newsletter />
       <Footer />

@@ -3,6 +3,9 @@ import { Suspense } from "react";
 import { SITE_URL } from "@/lib/constants";
 import FindJobsContent from "@/components/FindJobsContent";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "Find Premium Jobs | Fast Job Career",
   description: "Search jobs by Title, Type, and Salary. Admin, Vendor, and Affiliate listings across all countries.",
