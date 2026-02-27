@@ -94,3 +94,48 @@ $$;
 -- FOR EACH ROW
 -- WHEN (NEW.bucket_id = 'cv_bucket')
 -- EXECUTE FUNCTION public.handle_cv_upload();
+
+-- 8) Vendor Registration Table
+CREATE TABLE IF NOT EXISTS public.vendor_registrations (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  company_name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  contact_person TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  website TEXT,
+  business_type TEXT,
+  description TEXT,
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+  approved_by UUID REFERENCES public.user_profiles(id),
+  approved_at TIMESTAMPTZ,
+  rejection_reason TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_vendor_registrations_email ON public.vendor_registrations(email);
+CREATE INDEX IF NOT EXISTS idx_vendor_registrations_status ON public.vendor_registrations(status);
+CREATE INDEX IF NOT EXISTS idx_vendor_registrations_created_at ON public.vendor_registrations(created_at DESC);
+
+-- Function to auto-approve vendor if email matches super admin
+CREATE OR REPLACE FUNCTION public.auto_approve_vendor()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+BEGIN
+  IF NEW.email = (SELECT value FROM public.config WHERE key = 'super_admin_email' LIMIT 1) THEN
+    NEW.status := 'approved';
+    NEW.approved_at := NOW();
+    NEW.approved_by := (SELECT id FROM public.user_profiles WHERE email = NEW.email AND role = 'super_admin' LIMIT 1);
+  END IF;
+  RETURN NEW;
+END;
+$$;
+
+-- Trigger for auto-approval
+DROP TRIGGER IF EXISTS on_vendor_registration ON public.vendor_registrations;
+CREATE TRIGGER on_vendor_registration
+BEFORE INSERT ON public.vendor_registrations
+FOR EACH ROW
+EXECUTE FUNCTION public.auto_approve_vendor();

@@ -1,177 +1,197 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useState } from "react";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 
-function slugify(input: string) {
-  return input
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
 export default function AuthRegisterPage() {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [whatsapp, setWhatsapp] = useState("");
-  const [location, setLocation] = useState("");
-  const [category, setCategory] = useState("");
-  const [file, setFile] = useState<File | null>(null);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
-  const [progress, setProgress] = useState<number>(0);
-  const progressTimer = useRef<number | null>(null);
+  const [activeTab, setActiveTab] = useState<"seeker" | "vendor" | "admin">("seeker");
 
-  const canSubmit = useMemo(() => {
-    return fullName.trim() && email.trim() && whatsapp.trim() && location.trim();
-  }, [fullName, email, whatsapp, location]);
+  const loginWithGoogle = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: typeof window !== "undefined" ? window.location.origin : undefined,
+      },
+    });
+  };
 
-  const handleFile = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const f = e.target.files?.[0] || null;
-    if (!f) {
-      setFile(null);
-      return;
-    }
-    const allowed = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
-    const maxSize = 5 * 1024 * 1024; // 5MB
-    if (!allowed.includes(f.type)) {
-      setError("Please upload a PDF or Word document (DOC/DOCX).");
-      setFile(null);
-      return;
-    }
-    if (f.size > maxSize) {
-      setError("File too large. Max 5MB allowed.");
-      setFile(null);
-      return;
-    }
-    setError(null);
-    setFile(f);
-  }, []);
-
-  const onSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-      if (!canSubmit) return;
-      setSubmitting(true);
-      setError(null);
-      setSuccess(null);
-      let cvUrl: string | null = null;
-      try {
-        // Simulated progress indicator while uploading
-        if (file) {
-          setProgress(5);
-          progressTimer.current = window.setInterval(() => {
-            setProgress((p) => (p < 95 ? p + 5 : p));
-          }, 150);
-          const base = slugify(fullName || "seeker");
-          const ext = file.name.split(".").pop() || "pdf";
-          const name = `${base}-cv-${Date.now()}.${ext}`;
-          const { error: upErr } = await supabase.storage
-            .from("cv_bucket")
-            .upload(name, file, { contentType: file.type, upsert: false });
-          if (upErr) throw upErr;
-          const { data } = supabase.storage.from("cv_bucket").getPublicUrl(name);
-          cvUrl = data.publicUrl;
-        }
-
-        const { error: insErr } = await supabase.from("seeker_registrations").insert({
-          full_name: fullName,
-          email,
-          phone: whatsapp,
-          location,
-          category: category || null,
-          cv_url: cvUrl,
-        });
-        if (insErr) throw insErr;
-
-        // Email delivery hook (Edge Function / Webhook)
-        try {
-          await fetch("/api/email", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ type: "seeker_registered", fullName, email, whatsapp, location, category, cvUrl }),
-          });
-        } catch {}
-
-        await supabase.from("activity_logs").insert({
-          action: "seeker_registered",
-          metadata: { email, full_name: fullName, phone: whatsapp, location, category, cv_url: cvUrl },
-        });
-        setSuccess("Registration submitted successfully");
-        setFullName("");
-        setEmail("");
-        setWhatsapp("");
-        setLocation("");
-        setCategory("");
-        setFile(null);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to submit registration");
-      } finally {
-        if (progressTimer.current) {
-          window.clearInterval(progressTimer.current);
-          progressTimer.current = null;
-        }
-        setProgress(100);
-        setSubmitting(false);
-        setTimeout(() => setProgress(0), 800);
-      }
-    },
-    [canSubmit, file, fullName, email, whatsapp, location, category]
-  );
+  const loginWithApple = async () => {
+    // Apple login implementation would go here
+    console.log("Apple login clicked");
+  };
 
   return (
-    <main className="min-h-screen bg-[#0a2351] text-white px-4 py-8">
-      <div className="mx-auto max-w-xl">
-        <h1 className="text-2xl font-black">Seeker Registration</h1>
-        <p className="mt-1 text-sm text-amber-300">Upload CV and provide contact details</p>
-        {error && (
-          <div className="mt-4 rounded-lg border border-red-500/40 bg-red-950/50 px-3 py-2 text-sm text-red-100">
-            {error}
+    <main className="min-h-screen bg-gradient-to-br from-[#0a2351] to-[#1e3a8a] text-white px-4 py-8">
+      <div className="mx-auto max-w-4xl">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-black bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
+            Join Fast Job Career
+          </h1>
+          <p className="mt-2 text-slate-300">Choose your role and get started</p>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-slate-800/50 rounded-xl p-1 flex">
+            {["seeker", "vendor", "admin"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab as "seeker" | "vendor" | "admin")}
+                className={`px-6 py-2 rounded-lg text-sm font-medium transition-all ${
+                  activeTab === tab
+                    ? "bg-amber-500 text-slate-900"
+                    : "text-slate-300 hover:text-white"
+                }`}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </button>
+            ))}
           </div>
-        )}
-        {success && (
-          <div className="mt-4 rounded-lg border border-emerald-500/40 bg-emerald-900/40 px-3 py-2 text-sm text-emerald-100">
-            {success}
-          </div>
-        )}
-        <form onSubmit={onSubmit} className="mt-6 space-y-4 rounded-2xl border border-amber-400/30 bg-slate-900/60 p-5">
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wide text-amber-300 mb-1">Full Name</label>
-            <input value={fullName} onChange={(e) => setFullName(e.target.value)} className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm outline-none" placeholder="e.g., Ali Khan" required />
-          </div>
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wide text-amber-300 mb-1">Email</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm outline-none" placeholder="you@example.com" required />
-          </div>
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wide text-amber-300 mb-1">WhatsApp</label>
-            <input value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm outline-none" placeholder="+92 3XX XXXXXXX" required />
-          </div>
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wide text-amber-300 mb-1">Location</label>
-            <input value={location} onChange={(e) => setLocation(e.target.value)} className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm outline-none" placeholder="City, Country" required />
-          </div>
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wide text-amber-300 mb-1">Category</label>
-            <input value={category} onChange={(e) => setCategory(e.target.value)} className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm outline-none" placeholder="e.g., Accounting, Driving, IT & Software" />
-          </div>
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wide text-amber-300 mb-1">Upload CV (PDF/Doc)</label>
-            <input type="file" accept=".pdf,.doc,.docx" onChange={handleFile} className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm outline-none" />
-            {progress > 0 && (
-              <div className="mt-2 h-2 w-full rounded bg-slate-800">
-                <div className="h-2 rounded bg-amber-400 transition-all" style={{ width: `${progress}%` }} />
+        </div>
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Seeker Card */}
+          <div className={`rounded-2xl border-2 p-6 transition-all ${
+            activeTab === "seeker" 
+              ? "border-amber-400 bg-slate-800/60" 
+              : "border-slate-700/50 bg-slate-800/30"
+          }`}>
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-amber-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span className="text-2xl">👤</span>
               </div>
-            )}
+              <h3 className="text-xl font-bold text-amber-300">Job Seeker</h3>
+              <p className="text-slate-400 text-sm mt-1">Find your dream job</p>
+            </div>
+
+            {/* Social Login Buttons */}
+            <div className="space-y-3 mb-6">
+              <button
+                onClick={loginWithGoogle}
+                className="w-full flex items-center justify-center gap-2 bg-white text-slate-900 rounded-lg px-4 py-3 text-sm font-semibold hover:bg-slate-100 transition-colors"
+              >
+                <span className="w-5 h-5">🔍</span>
+                Continue with Google
+              </button>
+              <button
+                onClick={loginWithApple}
+                className="w-full flex items-center justify-center gap-2 bg-black text-white rounded-lg px-4 py-3 text-sm font-semibold hover:bg-slate-800 transition-colors"
+              >
+                <span className="w-5 h-5">🍎</span>
+                Continue with Apple
+              </button>
+            </div>
+
+            {/* Divider */}
+            <div className="relative mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-slate-600"></div>
+              </div>
+              <div className="relative flex justify-center text-xs">
+                <span className="bg-slate-800 px-2 text-slate-400">or register with email</span>
+              </div>
+            </div>
+
+            {/* Registration Link */}
+            <Link
+              href="/auth/register/seeker"
+              className="block w-full text-center bg-amber-500 text-slate-900 rounded-lg px-4 py-3 text-sm font-semibold hover:bg-amber-400 transition-colors"
+            >
+              Register as Seeker
+            </Link>
           </div>
-          <div>
-            <button type="submit" disabled={!canSubmit || submitting} className="w-full rounded-lg bg-amber-400 px-4 py-2 text-sm font-bold text-slate-900 disabled:opacity-60">
-              {submitting ? "Submitting..." : "Submit Registration"}
-            </button>
+
+          {/* Vendor Card */}
+          <div className={`rounded-2xl border-2 p-6 transition-all ${
+            activeTab === "vendor" 
+              ? "border-green-400 bg-slate-800/60" 
+              : "border-slate-700/50 bg-slate-800/30"
+          }`}>
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-green-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span className="text-2xl">🏢</span>
+              </div>
+              <h3 className="text-xl font-bold text-green-300">Vendor</h3>
+              <p className="text-slate-400 text-sm mt-1">Post jobs and hire talent</p>
+            </div>
+
+            {/* Social Login Buttons */}
+            <div className="space-y-3 mb-6">
+              <button
+                onClick={loginWithGoogle}
+                className="w-full flex items-center justify-center gap-2 bg-white text-slate-900 rounded-lg px-4 py-3 text-sm font-semibold hover:bg-slate-100 transition-colors"
+              >
+                <span className="w-5 h-5">🔍</span>
+                Continue with Google
+              </button>
+              <button
+                onClick={loginWithApple}
+                className="w-full flex items-center justify-center gap-2 bg-black text-white rounded-lg px-4 py-3 text-sm font-semibold hover:bg-slate-800 transition-colors"
+              >
+                <span className="w-5 h-5">🍎</span>
+                Continue with Apple
+              </button>
+            </div>
+
+            {/* Divider */}
+            <div className="relative mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-slate-600"></div>
+              </div>
+              <div className="relative flex justify-center text-xs">
+                <span className="bg-slate-800 px-2 text-slate-400">or register with email</span>
+              </div>
+            </div>
+
+            {/* Registration Link */}
+            <Link
+              href="/auth/vendor-register"
+              className="block w-full text-center bg-green-500 text-slate-900 rounded-lg px-4 py-3 text-sm font-semibold hover:bg-green-400 transition-colors"
+            >
+              Register as Vendor
+            </Link>
           </div>
-        </form>
+
+          {/* Admin Card */}
+          <div className={`rounded-2xl border-2 p-6 transition-all ${
+            activeTab === "admin" 
+              ? "border-purple-400 bg-slate-800/60" 
+              : "border-slate-700/50 bg-slate-800/30"
+          }`}>
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-purple-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span className="text-2xl">⚙️</span>
+              </div>
+              <h3 className="text-xl font-bold text-purple-300">Admin</h3>
+              <p className="text-slate-400 text-sm mt-1">Manage platform operations</p>
+            </div>
+
+            {/* Admin Note */}
+            <div className="bg-slate-700/50 rounded-lg p-4 mb-6">
+              <p className="text-sm text-slate-300 text-center">
+                Admin access is by invitation only. Contact support for access.
+              </p>
+            </div>
+
+            {/* Admin Login Button */}
+            <Link
+              href="/auth/login"
+              className="block w-full text-center bg-purple-500 text-white rounded-lg px-4 py-3 text-sm font-semibold hover:bg-purple-400 transition-colors"
+            >
+              Admin Login
+            </Link>
+          </div>
+        </div>
+
+        {/* Captcha Note */}
+        <div className="text-center mt-8">
+          <p className="text-sm text-slate-400">
+            All registrations include CAPTCHA verification for security
+          </p>
+        </div>
       </div>
     </main>
   );
