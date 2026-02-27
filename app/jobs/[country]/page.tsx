@@ -24,14 +24,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!config)
     return { title: "Jobs | Fast Job Career" };
 
+  const ogImage = `${SITE_URL}/vercel.svg`;
   return {
-    title: `${config.label} Jobs | Fast Job Career`,
-    description: `${config.description}. Browse latest ${config.label} job vacancies.`,
+    title: `Latest ${config.label} Jobs 2026 - Fast Job Career`,
+    description: `Explore ${config.label} vacancies. ${config.description} — updated for 2026.`,
     alternates: { canonical: `${SITE_URL}/jobs/${country}` },
     openGraph: {
       url: `${SITE_URL}/jobs/${country}`,
-      title: `${config.label} Jobs | Fast Job Career`,
-      description: config.description,
+      title: `Latest ${config.label} Jobs 2026 - Fast Job Career`,
+      description: `Explore ${config.label} vacancies. ${config.description}`,
+      images: [ogImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Latest ${config.label} Jobs 2026 - Fast Job Career`,
+      description: `Explore ${config.label} vacancies. ${config.description}`,
+      images: [ogImage],
     },
     robots: { index: true, follow: true },
   };

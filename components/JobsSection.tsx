@@ -46,21 +46,9 @@ export default function JobsSection({
 
   useEffect(() => {
     if (jobs.length === 0) return;
-
-    const titleLower = filterTitle.toLowerCase();
-    const countryLower = filterCountry.toLowerCase();
-
-    const filtered = jobs.filter((job) => {
-      const titleMatch =
-        !titleLower || (job.title || "").toLowerCase().includes(titleLower);
-      const countryMatch =
-        !countryLower ||
-        (job.country || "").toLowerCase().includes(countryLower);
-      return titleMatch && countryMatch;
-    });
-
-    setDisplayJobs(showAll ? filtered : filtered.slice(0, 4));
-  }, [filterTitle, filterCountry, triggerFilter, jobs, showAll]);
+    // Static latest feed: ignore external filters and show newest jobs
+    setDisplayJobs(showAll ? jobs : jobs.slice(0, 4));
+  }, [jobs, showAll]);
 
   const handleToggleShowAll = () => {
     setShowAll((prev) => !prev);

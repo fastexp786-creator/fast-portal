@@ -17,6 +17,7 @@ interface FindJobsSidebarProps {
   selectedCategory: string;
   onCountryChange: (c: string) => void;
   onCategoryChange: (c: string) => void;
+  onKeywordChange?: (k: string) => void;
 }
 
 type FilterRowProps = { label: string; isActive: boolean; onClick: () => void };
@@ -46,11 +47,13 @@ export default function FindJobsSidebar({
   selectedCategory,
   onCountryChange,
   onCategoryChange,
+  onKeywordChange,
 }: FindJobsSidebarProps) {
   const [showAllCountries, setShowAllCountries] = useState(false);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const [showAllSalaries, setShowAllSalaries] = useState(false);
   const [selectedSalary, setSelectedSalary] = useState("Any Salary");
+  const [localKeyword, setLocalKeyword] = useState("");
 
   return (
     <aside className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden select-none w-full max-w-[280px]">
@@ -62,6 +65,14 @@ export default function FindJobsSidebar({
           type="text" 
           placeholder="e.g. Accountant"
           className="w-full px-3 py-2 bg-white border border-gray-300 rounded focus:border-blue-600 outline-none text-[13px] transition-all"
+          value={localKeyword}
+          onChange={(e) => {
+            setLocalKeyword(e.target.value);
+            onKeywordChange?.(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") onKeywordChange?.(localKeyword);
+          }}
         />
       </div>
 

@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { JOBS_TABLE } from "@/lib/jobs-schema";
 import JobCard, { type Job } from "@/components/JobCard";
@@ -11,6 +11,7 @@ import FindJobsSidebar from "@/components/FindJobsSidebar";
 import AffiliateWidget from "@/components/AffiliateWidget";
 
 export default function FindJobsContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const q = searchParams?.get("q") || "";
   const countryParam = searchParams?.get("country") || "";
@@ -48,6 +49,22 @@ export default function FindJobsContent() {
           query = query.eq("job_source", sourceFilter);
         }
 
+        const kw = (filters.keyword || "").trim();
+        if (kw) {
+          const like = `%${kw}%`;
+          query = query.or(
+            `title.ilike.${like},category.ilike.${like},location.ilike.${like},country.ilike.${like}`
+          );
+        }
+
+        if (filters.country) {
+          query = query.ilike("country", `%${filters.country}%`);
+        }
+
+        if (filters.category) {
+          query = query.ilike("category", `%${filters.category}%`);
+        }
+
         const { data, error: fetchError } = await query;
         if (fetchError) throw fetchError;
         setJobs(data || []);
@@ -58,7 +75,7 @@ export default function FindJobsContent() {
       }
     }
     loadJobs();
-  }, [sourceFilter]);
+  }, [sourceFilter, filters.keyword, filters.country, filters.category]);
 
   const filteredJobs = jobs.filter((job) => {
     const kw = (filters.keyword || "").toLowerCase();
@@ -107,7 +124,66 @@ export default function FindJobsContent() {
   const handleSearch = (f: SearchFilters) => {
     setFilters(f);
     setDisplayLimit(12);
+    const params = new URLSearchParams();
+    if (f.keyword) params.set("q", f.keyword);
+    if (f.country) params.set("country", f.country);
+    if (f.category) params.set("cat", f.category);
+    if (f.province) params.set("province", f.province);
+    if (f.city) params.set("city", f.city);
+    if (f.area) params.set("area", f.area);
+    router.replace(`/find-jobs?${params.toString()}`);
   };
+
+  const activeChips = useMemo(() => {
+    const chips: Array<{ key: keyof SearchFilters | "source"; label: string; value: string }> = [];
+    if (filters.keyword) chips.push({ key: "keyword", label: "Keyword", value: filters.keyword });
+    if (filters.country) chips.push({ key: "country", label: "Country", value: filters.country });
+    if (filters.category) chips.push({ key: "category", label: "Category", value: filters.category });
+    if (filters.province) chips.push({ key: "province", label: "Province", value: filters.province });
+    if (filters.city) chips.push({ key: "city", label: "City", value: filters.city });
+    if (filters.area) chips.push({ key: "area", label: "Area", value: filters.area });
+    if (sourceFilter) chips.push({ key: "source", label: "Source", value: sourceFilter });
+    return chips;
+  }, [filters, sourceFilter]);
+
+  function updateUrlFromFilters(next: SearchFilters, src: string) {
+    const params = new URLSearchParams();
+    if (next.keyword) params.set("q", next.keyword);
+    if (next.country) params.set("country", next.country);
+    if (next.category) params.set("cat", next.category);
+    if (next.province) params.set("province", next.province);
+    if (next.city) params.set("city", next.city);
+    if (next.area) params.set("area", next.area);
+    if (src) params.set("source", src);
+    router.replace(`/find-jobs?${params.toString()}`);
+  }
+
+  function clearOneChip(k: keyof SearchFilters | "source") {
+    if (k === "source") {
+      setSourceFilter("");
+      updateUrlFromFilters(filters, "");
+      return;
+    }
+    const next = { ...filters, [k]: "" } as SearchFilters;
+    setFilters(next);
+    setDisplayLimit(12);
+    updateUrlFromFilters(next, sourceFilter);
+  }
+
+  function clearAllChips() {
+    const empty: SearchFilters = {
+      keyword: "",
+      country: "",
+      category: "",
+      province: "",
+      city: "",
+      area: "",
+    };
+    setFilters(empty);
+    setSourceFilter("");
+    setDisplayLimit(12);
+    updateUrlFromFilters(empty, "");
+  }
 
   return (
     <div className="find-jobs-page-wrap find-jobs-page pb-20 px-4">
@@ -138,6 +214,10 @@ export default function FindJobsContent() {
             }}
             onCategoryChange={(c) => {
               setSidebarCategory(c);
+              setDisplayLimit(12);
+            }}
+            onKeywordChange={(k) => {
+              setFilters((prev) => ({ ...prev, keyword: k }));
               setDisplayLimit(12);
             }}
           />
@@ -172,6 +252,37 @@ export default function FindJobsContent() {
               </button>
             ))}
           </div>
+
+          {activeChips.length > 0 && (
+            <div
+              className="flex items-center gap-2 -mt-4 mb-6 md:flex-wrap scrollbar-hide pr-2"
+              style={{
+                overflowX: "auto",
+                WebkitOverflowScrolling: "touch",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {activeChips.map((chip, idx) => (
+                <button
+                  key={`${chip.key}-${idx}`}
+                  type="button"
+                  onClick={() => clearOneChip(chip.key)}
+                  className="inline-flex items-center gap-2 rounded-full bg-gray-100 text-gray-700 px-3 py-1 text-xs font-semibold hover:bg-gray-200"
+                  title={`${chip.label}: ${chip.value}`}
+                >
+                  <span>{chip.label}: {chip.value}</span>
+                  <span aria-hidden className="font-bold">×</span>
+                </button>
+              ))}
+              <button
+                type="button"
+                onClick={clearAllChips}
+                className="ml-2 inline-flex items-center rounded-full bg-red-50 text-red-600 px-3 py-1 text-xs font-bold hover:bg-red-100"
+              >
+                Clear All
+              </button>
+            </div>
+          )}
 
           <section id="jobs-feed">
             {loading ? (
@@ -248,6 +359,10 @@ export default function FindJobsContent() {
                 }}
                 onCategoryChange={(c) => {
                   setSidebarCategory(c);
+                  setDisplayLimit(12);
+                }}
+                onKeywordChange={(k) => {
+                  setFilters((prev) => ({ ...prev, keyword: k }));
                   setDisplayLimit(12);
                 }}
               />

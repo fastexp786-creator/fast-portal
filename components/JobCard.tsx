@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import type { JobRow, JobSource } from "@/lib/jobs-schema";
 import { useAuthModal } from "@/components/AuthModalProvider";
@@ -35,6 +36,21 @@ export default function JobCard({ job }: { job: Job }) {
     }
   }
 
+  function slugify(s: string) {
+    return (s || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 60);
+  }
+
+  function jobDetailHref() {
+    if (!job.id) return null;
+    const title = slugify(job.title || "job");
+    const loc = slugify([job.location, job.country].filter(Boolean).join("-") || "location");
+    return `/job/${title}-${loc}--${job.id}`;
+  }
+
   return (
     <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center w-full group h-full justify-between">
       
@@ -42,15 +58,26 @@ export default function JobCard({ job }: { job: Job }) {
       <div className="w-full flex flex-col items-center flex-1">
         
         {/* Title: Size kam kiya gaya (text-md), aur click par toggle effect */}
-        <h4 
-          onClick={() => setIsExpanded(!isExpanded)}
-          className={`text-[16px] font-extrabold text-navy-950 mb-3 px-2 leading-tight uppercase tracking-tight w-full cursor-pointer hover:text-blue-600 transition-colors ${
-            isExpanded ? "line-clamp-none" : "line-clamp-1"
-          }`}
-          title={isExpanded ? "Click to collapse" : "Click to see full title"}
-        >
-          {job.title || "Job Vacancy"}
-        </h4>
+        {jobDetailHref() ? (
+          <Link href={jobDetailHref()!} className="w-full">
+            <h4 
+              className={`text-[16px] font-extrabold text-navy-950 mb-3 px-2 leading-tight uppercase tracking-tight w-full cursor-pointer hover:text-blue-600 transition-colors line-clamp-1`}
+              title="View job details"
+            >
+              {job.title || "Job Vacancy"}
+            </h4>
+          </Link>
+        ) : (
+          <h4 
+            onClick={() => setIsExpanded(!isExpanded)}
+            className={`text-[16px] font-extrabold text-navy-950 mb-3 px-2 leading-tight uppercase tracking-tight w-full cursor-pointer hover:text-blue-600 transition-colors ${
+              isExpanded ? "line-clamp-none" : "line-clamp-1"
+            }`}
+            title={isExpanded ? "Click to collapse" : "Click to see full title"}
+          >
+            {job.title || "Job Vacancy"}
+          </h4>
+        )}
 
         <div className="space-y-2 mb-6 w-full">
           {/* Company */}

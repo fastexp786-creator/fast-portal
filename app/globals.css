@@ -40,6 +40,15 @@ body.dark-mode .stat-card, body.dark-mode .testimonial-card, body.dark-mode .con
 * { box-sizing: border-box; }
 body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: var(--light); color: var(--text-color); line-height: 1.6; scroll-behavior: smooth; transition: 0.3s; overflow-x: hidden; }
 
+/* Hide horizontal scrollbars where applied */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
 /* Floating Dark Mode Toggle */
 .mode-toggle { position: fixed; right: 20px; top: 120px; z-index: 10001; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
