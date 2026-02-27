@@ -33,7 +33,7 @@ export async function generateMetadata(
   const { data } = await supabase.from(JOBS_TABLE).select("*").eq("id", id).maybeSingle();
   if (!data) return { title: SITE_NAME };
   const url = `${SITE_URL}/job/${slug}`;
-  const ogImage = `${SITE_URL}/vercel.svg`;
+  const ogImage = `${SITE_URL}/next.svg`;
   return {
     title: titleFor(data),
     description: descFor(data),
@@ -64,14 +64,28 @@ export default async function JobDetailPage(
   const { data, error } = await supabase.from(JOBS_TABLE).select("*").eq("id", id).maybeSingle();
   if (error || !data) notFound();
   const job = data as Partial<JobRow>;
+  const desc = (job.description || "").replace(/\n+/g, " ");
+  const salaryMatch = desc.match(/(?:PKR|Rs\.?|SAR|AED|USD)\s?([\d,]+)(?:\s*-\s*([\d,]+))?/i);
+  const currency =
+    salaryMatch?.[0]?.toUpperCase().includes("PKR") ? "PKR" :
+    salaryMatch?.[0]?.toUpperCase().includes("RS") ? "PKR" :
+    salaryMatch?.[0]?.toUpperCase().includes("SAR") ? "SAR" :
+    salaryMatch?.[0]?.toUpperCase().includes("AED") ? "AED" :
+    salaryMatch?.[0]?.toUpperCase().includes("USD") ? "USD" : undefined;
+  const min = salaryMatch?.[1]?.replace(/,/g, "");
+  const max = salaryMatch?.[2]?.replace(/,/g, "");
+  const jobLocationType = /remote/i.test(desc) || /remote/i.test([job.location, job.country].filter(Boolean).join(" "))
+    ? "TELECOMMUTE"
+    : "OnSite";
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "JobPosting",
     "title": job.title || "Job",
-    "description": (job.description || "").replace(/\n+/g, " ").slice(0, 5000),
+    "description": desc.slice(0, 5000),
     "datePosted": job.created_at || undefined,
     "validThrough": job.expiry_date || undefined,
     "employmentType": job.job_type || undefined,
+    "jobLocationType": jobLocationType,
     "identifier": {
       "@type": "PropertyValue",
       "name": SITE_NAME,
@@ -93,6 +107,17 @@ export default async function JobDetailPage(
       ? { "@type": "Country", "name": job.country }
       : undefined,
     "directApply": !!job.apply_url,
+    "baseSalary": currency && min ? {
+      "@type": "MonetaryAmount",
+      "currency": currency,
+      "value": {
+        "@type": "QuantitativeValue",
+        "value": Number(min),
+        "minValue": Number(min),
+        "maxValue": max ? Number(max) : undefined,
+        "unitText": "MONTH"
+      }
+    } : undefined
   };
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900 px-4 py-8">

@@ -39,7 +39,31 @@ export function TopBar() {
           <i className="fab fa-tiktok" />
         </a>
       </div>
-      
+      <div className="flex items-center justify-center gap-3 text-[11px]">
+        <span className="inline-flex items-center gap-1 rounded-full bg-[#0b1f3f] px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-amber-300">
+          <Globe2 className="h-3 w-3" />
+          <select
+            defaultValue="EN"
+            className="bg-transparent text-amber-300 outline-none"
+          >
+            <option value="EN">EN</option>
+            <option value="UR">UR</option>
+            <option value="AR">AR</option>
+          </select>
+        </span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-[#0b1f3f] px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-amber-300">
+          <Coins className="h-3 w-3" />
+          <select
+            defaultValue="PKR"
+            className="bg-transparent text-amber-300 outline-none"
+          >
+            <option value="PKR">PKR</option>
+            <option value="USD">USD</option>
+            <option value="SAR">SAR</option>
+            <option value="AED">AED</option>
+          </select>
+        </span>
+      </div>
       <div className="auth-btns flex items-center gap-4">
         <Link href="/dashboard" className="px-3 py-1 rounded-md bg-amber-400 text-[#0a2351] font-semibold text-sm hover:bg-amber-300 transition-colors">
           Dashboard

@@ -6,10 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "scrape:njp": "node scripts/scrape_njp.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.97.0",
+    "cheerio": "^1.0.0-rc.12",
     "clsx": "^2.1.1",
     "framer-motion": "^12.34.3",
     "lucide-react": "^0.575.0",
