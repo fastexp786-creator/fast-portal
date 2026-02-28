@@ -161,7 +161,7 @@ export default function VendorDashboard() {
     try {
       setPosting(true);
       const { data: { user } } = await supabase.auth.getUser();
-      const userEmail = user?.email ?? form.company || null;
+      const userEmail = (user?.email) ?? form.company ?? null;
 
       const payload = {
         title: form.title.trim(),
