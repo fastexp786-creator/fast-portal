@@ -46,6 +46,20 @@ export default function PageSidebar({ activeSlug }: PageSidebarProps) {
             <BookOpen className="page-sidebar-icon" aria-hidden />
             <span>Resource Hub</span>
           </Link>
+          <Link
+            href="/about"
+            className={`page-sidebar-item ${activeSlug === "about" ? "active" : ""}`}
+          >
+            <BookOpen className="page-sidebar-icon" aria-hidden />
+            <span>About Us</span>
+          </Link>
+          <Link
+            href="/contact"
+            className={`page-sidebar-item ${activeSlug === "contact" ? "active" : ""}`}
+          >
+            <BookOpen className="page-sidebar-icon" aria-hidden />
+            <span>Contact</span>
+          </Link>
         </nav>
 
         <h3 className="page-sidebar-title">Job Categories</h3>
