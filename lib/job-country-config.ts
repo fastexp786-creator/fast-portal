@@ -29,6 +29,74 @@ export const CAREERJET_LOCATION: Record<JobCountrySlug, string> = {
   "malaysia-jobs": "Malaysia",
 };
 
+/** RSS feed links for each country with multiple sources */
+export const RSS_FEED_URLS: Record<JobCountrySlug, string[]> = {
+  "usa-jobs": [
+    "https://www.usajobs.gov/api/jobs/rss",
+    "https://rss.indeed.com/rss?q=&l=USA",
+    "https://www.linkedin.com/jobs/rss?location=United%20States",
+    "https://www.careerbuilder.com/rss/jobs?location=USA",
+  ],
+  "uk-jobs": [
+    "https://rss.indeed.co.uk/rss?q=&l=United%20Kingdom",
+    "https://www.linkedin.com/jobs/rss?location=United%20Kingdom",
+    "https://www.reed.co.uk/rss/jobs",
+    "https://www.totaljobs.com/rss/jobs",
+  ],
+  "saudi-arabia-jobs": [
+    "https://rss.indeed.com.sa/rss?q=&l=Saudi%20Arabia",
+    "https://www.linkedin.com/jobs/rss?location=Saudi%20Arabia",
+    "https://www.bayt.com/en/rss/jobs/saudi-arabia/",
+    "https://www.mosoah.com/rss/jobs/saudi-arabia",
+  ],
+  "uae-jobs": [
+    "https://rss.indeed.com.ae/rss?q=&l=United%20Arab%20Emirates",
+    "https://www.linkedin.com/jobs/rss?location=United%20Arab%20Emirates",
+    "https://www.bayt.com/en/rss/jobs/uae/",
+    "https://www.gulfjobs.com/rss/jobs/uae",
+  ],
+  "qatar-jobs": [
+    "https://rss.indeed.com.qa/rss?q=&l=Qatar",
+    "https://www.linkedin.com/jobs/rss?location=Qatar",
+    "https://www.bayt.com/en/rss/jobs/qatar/",
+    "https://www.qatarliving.com/rss/jobs",
+  ],
+  "kuwait-jobs": [
+    "https://rss.indeed.com.kw/rss?q=&l=Kuwait",
+    "https://www.linkedin.com/jobs/rss?location=Kuwait",
+    "https://www.bayt.com/en/rss/jobs/kuwait/",
+    "https://www.kuwaittimes.com/rss/jobs",
+  ],
+  "oman-jobs": [
+    "https://www.linkedin.com/jobs/rss?location=Oman",
+    "https://www.bayt.com/en/rss/jobs/oman/",
+    "https://rss.indeed.com.om/rss?q=&l=Oman",
+  ],
+  "bahrain-jobs": [
+    "https://www.linkedin.com/jobs/rss?location=Bahrain",
+    "https://www.bayt.com/en/rss/jobs/bahrain/",
+    "https://rss.indeed.com.bh/rss?q=&l=Bahrain",
+  ],
+  "india-jobs": [
+    "https://rss.indeed.co.in/rss?q=&l=India",
+    "https://www.linkedin.com/jobs/rss?location=India",
+    "https://www.naukri.com/rssjobs",
+    "https://www.monsterindia.com/rss/jobs",
+  ],
+  "pakistan-jobs": [
+    "https://rss.indeed.com.pk/rss?q=&l=Pakistan",
+    "https://www.linkedin.com/jobs/rss?location=Pakistan",
+    "https://www.rozee.com/rss/jobs",
+    "https://www.mustakbil.com/rss/jobs",
+  ],
+  "malaysia-jobs": [
+    "https://rss.indeed.com.my/rss?q=&l=Malaysia",
+    "https://www.linkedin.com/jobs/rss?location=Malaysia",
+    "https://www.jobstreet.com.my/rss/jobs",
+    "https://www.malaysiajobs.com/rss/jobs",
+  ],
+};
+
 /** Display names for each country */
 export const JOB_COUNTRY_CONFIG: Record<
   JobCountrySlug,

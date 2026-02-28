@@ -10,12 +10,19 @@ import {
   Plane,
   Ship,
   Umbrella,
+  List,
 } from "lucide-react";
 
 const JOB_CATEGORIES = [
+  { slug: "all-jobs", label: "All Jobs", icon: List },
   { slug: "usa-jobs", label: "USA Jobs", icon: Flag },
   { slug: "uk-jobs", label: "UK Jobs", icon: Briefcase },
-  { slug: "gulf-jobs", label: "Gulf Jobs", icon: Globe2 },
+  { slug: "saudi-arabia-jobs", label: "Saudi Arabia", icon: Globe2 },
+  { slug: "uae-jobs", label: "UAE", icon: Globe2 },
+  { slug: "qatar-jobs", label: "Qatar", icon: Globe2 },
+  { slug: "kuwait-jobs", label: "Kuwait", icon: Globe2 },
+  { slug: "oman-jobs", label: "Oman", icon: Globe2 },
+  { slug: "bahrain-jobs", label: "Bahrain", icon: Globe2 },
   { slug: "india-jobs", label: "India Jobs", icon: Flag },
   { slug: "pakistan-jobs", label: "Pakistan Jobs", icon: Flag },
   { slug: "malaysia-jobs", label: "Malaysia Jobs", icon: Flag },
@@ -46,7 +53,7 @@ export default function PageSidebar({ activeSlug }: PageSidebarProps) {
           {JOB_CATEGORIES.map(({ slug, label, icon: Icon }) => (
             <Link
               key={slug}
-              href={`/jobs/${slug}`}
+              href={slug === "all-jobs" ? "/jobs" : `/jobs/${slug}`}
               className={`page-sidebar-item ${activeSlug === slug ? "active" : ""}`}
             >
               <Icon className="page-sidebar-icon" aria-hidden />
