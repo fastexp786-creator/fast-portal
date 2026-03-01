@@ -5,6 +5,8 @@ import GlobalLayout from "@/components/GlobalLayout";
 import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import enMessages from "@/messages/en.json";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -138,6 +140,8 @@ export default function RootLayout({
         <NextIntlClientProvider locale="en" messages={enMessages as any}>
           <GlobalLayout>{children}</GlobalLayout>
         </NextIntlClientProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
