@@ -20,22 +20,37 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Fast Job Career | World No 1 Job Portal",
-    template: "%s | Fast Job Career",
+    default: "Fast Portal | Jobs, Travel & Services Platform",
+    template: "%s | Fast Portal",
   },
   description:
-    "Connecting Global Talent with the World's Best Employers. Find jobs in UAE, Saudi Arabia, UK, Europe, and more.",
+    "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more. Connect with global opportunities and travel worldwide.",
+  keywords: "jobs, travel, air tickets, visa services, career portal, travel booking, job search, flights",
+  authors: [{ name: "Fast Portal" }],
+  creator: "Fast Portal",
+  publisher: "Fast Portal",
   openGraph: {
-    siteName: "Fast Job Career",
+    siteName: "Fast Portal",
     type: "website",
     locale: "en_US",
+    title: "Fast Portal | Jobs, Travel & Services Platform",
+    description: "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more.",
   },
   twitter: {
     card: "summary_large_image",
+    title: "Fast Portal | Jobs, Travel & Services Platform",
+    description: "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more.",
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   // WordPress plugins (Yoast/RankMath) verification – .env se add karo
   verification: {
@@ -62,6 +77,24 @@ export default function RootLayout({
         <link
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           rel="stylesheet"
+        />
+        {/* Structured Data for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Fast Portal",
+              description: "Your one-stop platform for jobs, travel services, air tickets, visas, and more",
+              url: SITE_URL,
+              potentialAction: {
+                "@type": "SearchAction",
+                target: `${SITE_URL}/find-jobs?q={search_term_string}`,
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
         />
       </head>
       <body

@@ -16,6 +16,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: SITE_URL, lastModified: new Date(), changeFrequency: "daily" as const, priority: 1 },
     { url: `${SITE_URL}/find-jobs`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 },
+    { url: `${SITE_URL}/travel`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.8 },
+    { url: `${SITE_URL}/services/air-tickets`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 },
     ...jobPages,
   ];
 }

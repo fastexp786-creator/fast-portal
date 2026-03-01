@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { use } from "react";
 import { SITE_URL } from "@/lib/constants";
 import {
   SERVICE_CONFIG,
@@ -36,8 +37,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ServicePage({ params }: Props) {
-  const { slug } = await params;
+export default function ServicePage({ params }: Props) {
+  const { slug } = use(params);
 
   if (!SERVICE_SLUGS.includes(slug as ServiceSlug)) notFound();
 
