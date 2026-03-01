@@ -41,8 +41,6 @@ export const metadata: Metadata = {
     },
   },
 };
-  },
-};
 
 export default function TravelPage() {
   return (
