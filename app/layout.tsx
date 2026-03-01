@@ -93,6 +93,41 @@ export default function RootLayout({
                 target: `${SITE_URL}/find-jobs?q={search_term_string}`,
                 "query-input": "required name=search_term_string",
               },
+              publisher: {
+                "@type": "Organization",
+                name: "Fast Portal",
+                url: SITE_URL,
+                logo: {
+                  "@type": "ImageObject",
+                  url: `${SITE_URL}/logo.png`,
+                },
+              },
+              sameAs: [
+                // Add social media URLs here when available
+              ],
+            }),
+          }}
+        />
+        {/* Organization Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Fast Portal",
+              description: "Leading platform for jobs, travel services, and global opportunities",
+              url: SITE_URL,
+              logo: {
+                "@type": "ImageObject",
+                url: `${SITE_URL}/logo.png`,
+              },
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer service",
+                availableLanguage: "English",
+              },
+              areaServed: "Worldwide",
             }),
           }}
         />

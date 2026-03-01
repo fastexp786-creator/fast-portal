@@ -2,24 +2,6 @@
 "use client";
 
 import { useState } from "react";
-import { Metadata } from "next";
-
-// Page metadata for SEO
-export const metadata: Metadata = {
-  title: "Air Tickets - Book Flights Worldwide | Fast Portal",
-  description: "Search and book flights worldwide with Fast Portal. Find best deals on domestic and international flights. Compare prices and book your next trip.",
-  keywords: "air tickets, flight booking, cheap flights, airline tickets, travel booking, flight search",
-  openGraph: {
-    title: "Air Tickets - Book Flights Worldwide | Fast Portal",
-    description: "Search and book flights worldwide with Fast Portal. Find best deals on domestic and international flights.",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Air Tickets - Book Flights Worldwide | Fast Portal",
-    description: "Search and book flights worldwide with Fast Portal. Find best deals on domestic and international flights.",
-  },
-};
 
 export default function AirTicketsPage() {
   const [searchData, setSearchData] = useState({

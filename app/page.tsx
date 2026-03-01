@@ -6,14 +6,20 @@ import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Fast Job Career | World No 1 Job Portal",
-    template: "%s | Fast Job Career",
+    default: "Fast Portal | Jobs, Travel & Services Platform",
+    template: "%s | Fast Portal",
   },
   description:
-    "Connecting Global Talent with the World's Best Employers. Find jobs in UAE, Saudi Arabia, UK, Europe, and more. Visit visa, Umrah, air tickets, and career services.",
+    "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more. Connect with global opportunities and travel worldwide.",
   keywords: [
     "jobs",
     "career",
+    "travel",
+    "air tickets",
+    "visa services",
+    "job search",
+    "employment",
+    "recruitment",
     "gulf jobs",
     "UAE jobs",
     "Saudi jobs",
@@ -21,21 +27,24 @@ export const metadata: Metadata = {
     "Europe jobs",
     "work visa",
   ],
+  authors: [{ name: "Fast Portal" }],
+  creator: "Fast Portal",
+  publisher: "Fast Portal",
   alternates: {
-    canonical: "/",
+    canonical: SITE_URL,
   },
   openGraph: {
-    url: "/",
-    siteName: "Fast Job Career",
-    title: "Fast Job Career | World No 1 Job Portal",
-    description: "Connecting Global Talent with the World's Best Employers.",
+    url: SITE_URL,
+    siteName: "Fast Portal",
+    title: "Fast Portal | Jobs, Travel & Services Platform",
+    description: "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fast Job Career | World No 1 Job Portal",
-    description: "Connecting Global Talent with the World's Best Employers.",
+    title: "Fast Portal | Jobs, Travel & Services Platform",
+    description: "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more.",
   },
   robots: {
     index: true,
@@ -43,6 +52,9 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
 };

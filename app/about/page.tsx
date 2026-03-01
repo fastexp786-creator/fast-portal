@@ -5,21 +5,41 @@ import Testimonials from "@/components/Testimonials";
 import PageSidebar from "@/components/PageSidebar";
 
 export const metadata: Metadata = {
-  title: "About Fast Job Career | Worldwide Job & Travel Portal",
+  metadataBase: new URL(SITE_URL),
+  title: "About Fast Portal | Worldwide Job & Travel Platform",
   description:
-    "Fast Job Career connects global talent with premium employers across Gulf, Europe, UK, and beyond – with integrated travel and visa support.",
+    "Fast Portal connects global talent with premium employers across Gulf, Europe, UK, and beyond – with integrated travel and visa support.",
+  keywords: "about fast portal, company profile, job portal, travel services, global opportunities",
+  authors: [{ name: "Fast Portal" }],
+  creator: "Fast Portal",
+  publisher: "Fast Portal",
   alternates: {
     canonical: `${SITE_URL}/about`,
   },
   openGraph: {
     url: `${SITE_URL}/about`,
-    title: "About Fast Job Career",
+    title: "About Fast Portal | Worldwide Job & Travel Platform",
     description:
       "Luxury navy & gold powered global job portal with travel, visas, and career services.",
+    type: "website",
+    siteName: "Fast Portal",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Fast Portal | Worldwide Job & Travel Platform",
+    description: "Luxury navy & gold powered global job portal with travel, visas, and career services.",
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
