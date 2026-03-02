@@ -10,13 +10,27 @@ export default function AuthRegisterPage() {
   const [activeTab, setActiveTab] = useState<"seeker" | "vendor" | "admin">("seeker");
 
   const loginWithGoogle = async () => {
-    // Google OAuth temporarily disabled - enable in Supabase dashboard
-    alert(t("googleDisabledNote"));
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/dashboard`
+      }
+    });
+    if (error) {
+      alert("Google login failed: " + error.message);
+    }
   };
 
   const loginWithApple = async () => {
-    // Apple login temporarily disabled
-    alert(t("appleDisabledNote"));
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'apple',
+      options: {
+        redirectTo: `${window.location.origin}/dashboard`
+      }
+    });
+    if (error) {
+      alert("Apple login failed: " + error.message);
+    }
   };
 
   return (
