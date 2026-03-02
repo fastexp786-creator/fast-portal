@@ -65,7 +65,7 @@ export default function VendorRegistrationPage() {
 
       try {
         // Insert vendor registration
-        const { error: insErr } = await supabase.from("vendor_registrations").insert({
+        const { error: insErr } = await supabase.from("vendor_submissions").insert({
           company_name: companyName,
           email,
           contact_person: contactPerson,
