@@ -1,277 +1,357 @@
-import type { Metadata } from "next";
-import { SITE_URL } from "@/lib/constants";
-import StandardPageLayout, { generateStandardMetadata } from "@/components/StandardPageLayout";
+import { Metadata } from "next";
 
-export const metadata: Metadata = generateStandardMetadata(
-  "Report Issue",
-  "Report safety concerns, fraudulent activities, or technical issues on Fast Portal. Our team will investigate and respond promptly.",
-  "report-issue"
-);
+export const metadata: Metadata = {
+  title: "Report an Issue | Fast Job Career",
+  description: "Report technical issues, bugs, or problems with Fast Job Career platform. Help us improve our service by reporting issues.",
+  keywords: "report issue, bug report, technical support, platform issues, feedback",
+};
 
 export default function ReportIssuePage() {
   return (
-    <StandardPageLayout
-      title="Report Issue"
-      description="Report safety concerns, fraudulent activities, or technical issues on Fast Portal. Our team will investigate and respond promptly."
-      activeSlug="report-issue"
-    >
-      <div className="mx-auto max-w-5xl px-4 py-10">
-        <div className="mb-8 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-400">
-            Report Center
-          </p>
-          <h1 className="mt-3 text-3xl font-black text-black md:text-4xl">
+    <div className="min-h-screen bg-gray-50 py-12">
+      <div className="container mx-auto px-4 max-w-4xl">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Report an Issue
           </h1>
-          <p className="mx-auto mt-3 max-w-2xl text-sm text-standard">
-            Help us keep Fast Portal safe and secure. Report any issues, concerns, or suspicious activities. Your reports help us maintain a trustworthy platform for all users.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Help us improve Fast Job Career by reporting technical issues, bugs, or platform problems. 
+            Your feedback helps us provide a better experience for all users.
           </p>
         </div>
 
-        {/* Report Categories */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
-          <div className="card-standard p-6">
-            <h3 className="heading-standard text-lg mb-4">Fraud & Scams</h3>
-            <p className="text-standard mb-4">
-              Report fraudulent job postings, fake employers, or suspicious recruitment activities.
+        {/* Issue Categories */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer border-2 border-transparent hover:border-blue-300">
+            <div className="w-12 h-12 bg-red-100 text-red-600 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-2xl">🐛</span>
+            </div>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Bug Report</h3>
+            <p className="text-gray-600 text-sm">
+              Report technical bugs, errors, or system malfunctions
             </p>
-            <ul className="space-y-2 text-standard text-sm mb-4">
-              <li>• Fake job postings</li>
-              <li>• Phishing attempts</li>
-              <li>• Payment scams</li>
-              <li>• Identity theft</li>
-            </ul>
-            <button className="btn-standard w-full">Report Fraud</button>
           </div>
-
-          <div className="card-standard p-6">
-            <h3 className="heading-standard text-lg mb-4">Safety Concerns</h3>
-            <p className="text-standard mb-4">
-              Report any safety issues or concerns related to job interviews or workplace conditions.
+          <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer border-2 border-transparent hover:border-blue-300">
+            <div className="w-12 h-12 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-2xl">💻</span>
+            </div>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Performance Issue</h3>
+            <p className="text-gray-600 text-sm">
+              Slow loading, crashes, or performance problems
             </p>
-            <ul className="space-y-2 text-standard text-sm mb-4">
-              <li>• Unsafe interview locations</li>
-              <li>• Harassment incidents</li>
-              <li>• Discrimination</li>
-              <li>• Workplace safety</li>
-            </ul>
-            <button className="btn-standard w-full">Report Safety Issue</button>
           </div>
-
-          <div className="card-standard p-6">
-            <h3 className="heading-standard text-lg mb-4">Technical Issues</h3>
-            <p className="text-standard mb-4">
-              Report bugs, glitches, or technical problems affecting your experience on the platform.
+          <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer border-2 border-transparent hover:border-blue-300">
+            <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-2xl">🎨</span>
+            </div>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">UI/UX Problem</h3>
+            <p className="text-gray-600 text-sm">
+              Design issues, navigation problems, or user experience
             </p>
-            <ul className="space-y-2 text-standard text-sm mb-4">
-              <li>• Platform bugs</li>
-              <li>• Login issues</li>
-              <li>• Payment problems</li>
-              <li>• Feature malfunctions</li>
-            </ul>
-            <button className="btn-standard w-full">Report Bug</button>
           </div>
-
-          <div className="card-standard p-6">
-            <h3 className="heading-standard text-lg mb-4">Policy Violations</h3>
-            <p className="text-standard mb-4">
-              Report violations of our community guidelines, terms of service, or acceptable use policies.
+          <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer border-2 border-transparent hover:border-blue-300">
+            <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-2xl">💡</span>
+            </div>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Feature Request</h3>
+            <p className="text-gray-600 text-sm">
+              Suggest new features or improvements
             </p>
-            <ul className="space-y-2 text-standard text-sm mb-4">
-              <li>• Inappropriate content</li>
-              <li>• Spam activities</li>
-              <li>• Fake profiles</li>
-              <li>• Terms violations</li>
-            </ul>
-            <button className="btn-standard w-full">Report Violation</button>
-          </div>
-
-          <div className="card-standard p-6">
-            <h3 className="heading-standard text-lg mb-4">Data Privacy</h3>
-            <p className="text-standard mb-4">
-              Report concerns about data protection, privacy breaches, or unauthorized data access.
-            </p>
-            <ul className="space-y-2 text-standard text-sm mb-4">
-              <li>• Data breaches</li>
-              <li>• Privacy violations</li>
-              <li>• Unauthorized access</li>
-              <li>• Data misuse</li>
-            </ul>
-            <button className="btn-standard w-full">Report Privacy Issue</button>
-          </div>
-
-          <div className="card-standard p-6">
-            <h3 className="heading-standard text-lg mb-4">Other Issues</h3>
-            <p className="text-standard mb-4">
-              Report any other concerns or issues that don't fit into the above categories.
-            </p>
-            <ul className="space-y-2 text-standard text-sm mb-4">
-              <li>• General concerns</li>
-              <li>• Suggestions</li>
-              <li>• Feedback</li>
-              <li>• Other problems</li>
-            </ul>
-            <button className="btn-standard w-full">Report Other Issue</button>
           </div>
         </div>
 
         {/* Report Form */}
-        <div className="mt-12 card-standard">
-          <h2 className="heading-standard text-xl text-center mb-6">Detailed Report Form</h2>
-          <form className="max-w-2xl mx-auto">
-            <div className="grid gap-6 md:grid-cols-2">
+        <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+            Issue Details
+          </h2>
+          <form className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium mb-2">Your Name *</label>
-                <input type="text" className="input-standard w-full" placeholder="Enter your full name" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Email Address *</label>
-                <input type="email" className="input-standard w-full" placeholder="your.email@example.com" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Phone Number</label>
-                <input type="tel" className="input-standard w-full" placeholder="+92 300 1234567" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Report Category *</label>
-                <select className="input-standard w-full">
-                  <option>Select a category</option>
-                  <option>Fraud & Scams</option>
-                  <option>Safety Concerns</option>
-                  <option>Technical Issues</option>
-                  <option>Policy Violations</option>
-                  <option>Data Privacy</option>
-                  <option>Other Issues</option>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Issue Type *
+                </label>
+                <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <option value="">Select issue type</option>
+                  <option value="bug">Bug Report</option>
+                  <option value="performance">Performance Issue</option>
+                  <option value="ui-ux">UI/UX Problem</option>
+                  <option value="feature">Feature Request</option>
+                  <option value="security">Security Concern</option>
+                  <option value="other">Other</option>
                 </select>
               </div>
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium mb-2">Subject *</label>
-                <input type="text" className="input-standard w-full" placeholder="Brief description of the issue" />
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium mb-2">Detailed Description *</label>
-                <textarea className="input-standard w-full" rows={6} placeholder="Please provide as much detail as possible about the issue, including dates, names, locations, and any relevant information that would help us investigate."></textarea>
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium mb-2">Attachments (Optional)</label>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                  <p className="text-standard text-sm mb-2">
-                    Upload screenshots, documents, or other evidence (Max 5MB per file)
-                  </p>
-                  <button type="button" className="btn-standard">Choose Files</button>
-                </div>
-              </div>
-              <div className="md:col-span-2">
-                <div className="flex items-center">
-                  <input type="checkbox" id="urgent" className="mr-2" />
-                  <label htmlFor="urgent" className="text-standard text-sm">
-                    Mark as urgent (requires immediate attention)
-                  </label>
-                </div>
-              </div>
-              <div className="md:col-span-2">
-                <div className="flex items-center">
-                  <input type="checkbox" id="anonymous" className="mr-2" />
-                  <label htmlFor="anonymous" className="text-standard text-sm">
-                    Report anonymously (your identity will be protected)
-                  </label>
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Priority Level
+                </label>
+                <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <option value="low">Low - Minor inconvenience</option>
+                  <option value="medium">Medium - Affects usability</option>
+                  <option value="high">High - Blocks functionality</option>
+                  <option value="critical">Critical - System unusable</option>
+                </select>
               </div>
             </div>
-            <div className="mt-6 flex gap-4 justify-center">
-              <button type="submit" className="btn-standard">Submit Report</button>
-              <button type="button" className="btn-standard bg-gray-500 hover:bg-gray-600">Cancel</button>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Issue Title *
+              </label>
+              <input
+                type="text"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Brief summary of the issue"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Detailed Description *
+              </label>
+              <textarea
+                rows={6}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Please describe the issue in detail. Include what happened, what you expected to happen, and any error messages you saw."
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  URL/Page Where Issue Occurred
+                </label>
+                <input
+                  type="url"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="https://fastjobcareer.com/page-url"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Browser/Device Information
+                </label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Chrome 120, Windows 11, iPhone 14, etc."
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Steps to Reproduce
+              </label>
+              <div className="bg-gray-50 rounded-lg p-4">
+                <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700">
+                  <li>Go to...</li>
+                  <li>Click on...</li>
+                  <li>Enter...</li>
+                  <li>Expected result...</li>
+                  <li>Actual result...</li>
+                </ol>
+              </div>
+              <textarea
+                rows={4}
+                className="w-full mt-3 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Describe the exact steps to reproduce the issue"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Attachments (Screenshots, Videos, Logs)
+              </label>
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                <div className="text-gray-600 mb-2">
+                  <span className="text-3xl">📎</span>
+                </div>
+                <p className="text-sm text-gray-600 mb-3">
+                  Drag and drop files here or click to browse
+                </p>
+                <button
+                  type="button"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                >
+                  Choose Files
+                </button>
+                <p className="text-xs text-gray-500 mt-2">
+                  Maximum file size: 10MB. Supported formats: JPG, PNG, GIF, MP4, PDF, TXT
+                </p>
+              </div>
             </div>
           </form>
         </div>
 
-        {/* What Happens Next */}
-        <div className="mt-12">
-          <h2 className="heading-standard text-xl mb-6">What Happens Next?</h2>
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="card-standard p-6 text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">📋</span>
-              </div>
-              <h3 className="heading-standard text-base mb-2">Review Process</h3>
-              <p className="text-standard text-sm">
-                Our team reviews your report within 24 hours and assesses the severity and urgency.
-              </p>
+        {/* Contact Information */}
+        <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Contact Information</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Your Name *
+              </label>
+              <input
+                type="text"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Your full name"
+              />
             </div>
-
-            <div className="card-standard p-6 text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🔍</span>
-              </div>
-              <h3 className="heading-standard text-base mb-2">Investigation</h3>
-              <p className="text-standard text-sm">
-                We conduct a thorough investigation and take appropriate action based on findings.
-              </p>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email Address *
+              </label>
+              <input
+                type="email"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="your.email@example.com"
+              />
             </div>
-
-            <div className="card-standard p-6 text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">📧</span>
-              </div>
-              <h3 className="heading-standard text-base mb-2">Follow-up</h3>
-              <p className="text-standard text-sm">
-                You'll receive updates on the investigation status and resolution of your report.
-              </p>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Account ID (Optional)
+              </label>
+              <input
+                type="text"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Your Fast Job Career account ID"
+              />
             </div>
-          </div>
-        </div>
-
-        {/* Emergency Contact */}
-        <div className="mt-12 card-standard">
-          <h2 className="heading-standard text-xl text-center mb-6">Emergency Contact</h2>
-          <div className="text-center">
-            <p className="text-standard mb-6">
-              For urgent safety concerns or immediate threats, please contact our emergency team immediately.
-            </p>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div>
-                <h3 className="heading-standard text-base mb-2">Emergency Hotline</h3>
-                <p className="text-standard text-sm mb-4">
-                  Available 24/7 for urgent safety concerns and emergency situations.
-                </p>
-                <p className="text-standard">
-                  <strong>Phone:</strong> +92 310 0570707<br />
-                  <strong>Response Time:</strong> Within 1 hour
-                </p>
-              </div>
-              <div>
-                <h3 className="heading-standard text-base mb-2">Emergency Email</h3>
-                <p className="text-standard text-sm mb-4">
-                  For urgent issues requiring immediate attention and documentation.
-                </p>
-                <p className="text-standard">
-                  <strong>Email:</strong> emergency@fastportal.com<br />
-                  <strong>Response Time:</strong> Within 2 hours
-                </p>
-              </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Phone Number (Optional)
+              </label>
+              <input
+                type="tel"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="+92 300 1234567"
+              />
             </div>
           </div>
         </div>
 
-        {/* Additional Resources */}
-        <div className="mt-12">
-          <h2 className="heading-standard text-xl mb-6">Additional Resources</h2>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <a href="/safety" className="card-standard p-4 hover:bg-gray-750 transition-colors duration-200">
-              <h4 className="heading-standard text-base mb-2">Safety Guidelines</h4>
-              <p className="text-standard text-sm">Learn how to stay safe while using our platform</p>
-            </a>
-            <a href="/faq" className="card-standard p-4 hover:bg-gray-750 transition-colors duration-200">
-              <h4 className="heading-standard text-base mb-2">Frequently Asked Questions</h4>
-              <p className="text-standard text-sm">Find answers to common questions and concerns</p>
-            </a>
-            <a href="/help-center" className="card-standard p-4 hover:bg-gray-750 transition-colors duration-200">
-              <h4 className="heading-standard text-base mb-2">Help Center</h4>
-              <p className="text-standard text-sm">Get comprehensive support and assistance</p>
-            </a>
+        {/* Submit Section */}
+        <div className="text-center">
+          <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors">
+            Submit Issue Report
+          </button>
+          <p className="text-gray-600 text-sm mt-4">
+            We'll review your report and respond within 24-48 hours. For urgent issues, 
+            please contact our live support team.
+          </p>
+        </div>
+
+        {/* Common Issues */}
+        <div className="bg-blue-50 rounded-xl p-8">
+          <h2 className="text-3xl font-bold text-blue-900 mb-8 text-center">
+            Common Issues & Solutions
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-lg p-6">
+              <h3 className="font-bold text-blue-900 mb-3">
+                🔐 Login Problems
+              </h3>
+              <div className="space-y-3">
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">Forgot Password</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Use the "Forgot Password" link on the login page to reset your password.
+                  </p>
+                  <button className="text-blue-600 hover:text-blue-700 text-sm font-semibold">
+                    Reset Password →
+                  </button>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">Account Locked</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Accounts lock after multiple failed attempts. Wait 30 minutes or contact support.
+                  </p>
+                  <button className="text-blue-600 hover:text-blue-700 text-sm font-semibold">
+                    Contact Support →
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg p-6">
+              <h3 className="font-bold text-blue-900 mb-3">
+                📱 Mobile App Issues
+              </h3>
+              <div className="space-y-3">
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">App Crashing</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Try clearing cache, restarting your device, or reinstalling the app.
+                  </p>
+                  <button className="text-blue-600 hover:text-blue-700 text-sm font-semibold">
+                    View Troubleshooting →
+                  </button>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">Sync Issues</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Check your internet connection and ensure you're logged into the correct account.
+                  </p>
+                  <button className="text-blue-600 hover:text-blue-700 text-sm font-semibold">
+                    Sync Help →
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg p-6">
+              <h3 className="font-bold text-blue-900 mb-3">
+                💼 Job Application Issues
+              </h3>
+              <div className="space-y-3">
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">Application Not Submitting</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Check file size limits, required fields, and internet connection.
+                  </p>
+                  <button className="text-blue-600 hover:text-blue-700 text-sm font-semibold">
+                    Application Guide →
+                  </button>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">Not Receiving Responses</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Check spam folder, verify email address, and confirm application was submitted.
+                  </p>
+                  <button className="text-blue-600 hover:text-blue-700 text-sm font-semibold">
+                    Email Settings →
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg p-6">
+              <h3 className="font-bold text-blue-900 mb-3">
+                💳 Payment Issues
+              </h3>
+              <div className="space-y-3">
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">Payment Failed</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Check card details, billing address, and available balance.
+                  </p>
+                  <button className="text-blue-600 hover:text-blue-700 text-sm font-semibold">
+                    Payment Help →
+                  </button>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">Refund Request</h4>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Refunds are processed within 5-7 business days. Contact billing support.
+                  </p>
+                  <button className="text-blue-600 hover:text-blue-700 text-sm font-semibold">
+                    Refund Policy →
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </StandardPageLayout>
+    </div>
   );
 }

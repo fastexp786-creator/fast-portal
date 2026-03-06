@@ -1,222 +1,525 @@
-import type { Metadata } from "next";
-import { SITE_URL } from "@/lib/constants";
-import StandardPageLayout, { generateStandardMetadata } from "@/components/StandardPageLayout";
+import { Metadata } from "next";
 
-export const metadata: Metadata = generateStandardMetadata(
-  "Terms of Service",
-  "Read Fast Portal's Terms of Service and Conditions. Understand your rights and responsibilities when using our job portal platform.",
-  "terms"
-);
+export const metadata: Metadata = {
+  title: "Terms of Service | Fast Job Career",
+  description: "Fast Job Career's terms of service and user agreement. Read our terms for using our job platform and services.",
+  keywords: "terms of service, user agreement, platform terms, legal terms, service conditions",
+};
 
 export default function TermsPage() {
   return (
-    <StandardPageLayout
-      title="Terms of Service"
-      description="Read Fast Portal's Terms of Service and Conditions. Understand your rights and responsibilities when using our job portal platform."
-      activeSlug="terms"
-    >
-      <div className="mx-auto max-w-5xl px-4 py-10">
-        <div className="mb-8 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-400">
-            Legal Information
-          </p>
-          <h1 className="mt-3 text-3xl font-black text-black md:text-4xl">
+    <div className="min-h-screen bg-gray-50 py-12">
+      <div className="container mx-auto px-4 max-w-4xl">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Terms of Service
           </h1>
-          <p className="mx-auto mt-3 max-w-2xl text-sm text-standard">
-            Please read these terms carefully before using Fast Portal's services.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Welcome to Fast Job Career. These terms of service govern your use of 
+            our platform and services. By using our services, you agree to these terms.
           </p>
         </div>
 
-        <div className="card-standard">
-          <div className="space-y-8 text-sm text-standard">
-            <section>
-              <h2 className="heading-standard text-xl mb-4">1. Acceptance of Terms</h2>
-              <p>
-                By accessing and using Fast Portal's website, mobile application, and services (collectively, "Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, you may not access or use our Service. These Terms apply to all visitors, users, and others who access or use Service.
-              </p>
-              <p>
-                Fast Portal reserves the right to update, change, or replace any part of these Terms by posting updates and changes to our website. It is your responsibility to check our website periodically for changes. Your continued use of or access to our website or Service following the posting of any changes to these Terms constitutes acceptance of those changes.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="mb-4 text-xl font-semibold text-white">2. Description of Service</h2>
-              <p>
-                Fast Portal is a comprehensive job portal platform that connects job seekers with employers globally. Our Service includes features such as job listings, resume building tools, application tracking, career resources, travel and visa assistance, and other related services. We act as an intermediary platform facilitating connections between job seekers and employers.
-              </p>
-              <p>
-                Our platform is designed to streamline the recruitment process by providing tools and resources for both job seekers and employers. However, we do not guarantee employment or the suitability of any job listing, candidate, or employer. Users are responsible for conducting their own due diligence before entering into any employment relationship.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">3. User Accounts and Registration</h2>
-              <p>
-                To access certain features of our Service, you must register for an account. When you register, you agree to provide accurate, current, and complete information as prompted by our registration form. You are solely responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.
-              </p>
-              <p>
-                You agree to notify us immediately of any unauthorized use of your account. Fast Portal reserves the right to suspend or terminate your account if we suspect any unauthorized use or violation of these Terms. You must be at least 18 years old to create an account and use our Service.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">4. User Responsibilities</h2>
-              <p>
-                As a user of Fast Portal, you agree to use our Service responsibly and in accordance with all applicable laws and regulations. You are responsible for all content you post, upload, or otherwise make available through our Service. You agree not to use our Service to:
-              </p>
-              <ul className="ml-6 list-disc space-y-2 text-standard">
-                <li>Post false, misleading, or fraudulent information</li>
-                <li>Violate any applicable laws or regulations</li>
-                <li>Infringe upon the intellectual property rights of others</li>
-                <li>Upload malicious code, viruses, or harmful software</li>
-                <li>Spam or harass other users</li>
-                <li>Discriminate based on race, religion, gender, or other protected characteristics</li>
-                <li>Use the Service for any illegal or unauthorized purpose</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">5. Privacy and Data Protection</h2>
-              <p>
-                Your privacy is important to us. Our collection and use of personal information is governed by our Privacy Policy, which is incorporated into these Terms by reference. By using our Service, you consent to the collection, use, and sharing of your information as described in our Privacy Policy.
-              </p>
-              <p>
-                We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the internet or method of electronic storage is 100% secure.
-              </p>
-              <p>
-                We will notify you in the event of a data breach and will take reasonable steps to mitigate the effects of the breach.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">6. Intellectual Property Rights</h2>
-              <p>
-                The Service and its original content, features, and functionality are and will remain the exclusive property of Fast Portal and its licensors. The Service is protected by copyright, trademark, and other laws of both Pakistan and foreign countries.
-              </p>
-              <p>
-                You may not modify, reproduce, distribute, create derivative works, publicly display, publicly perform, republish, download, store, or transmit any of the material on our Service, except as permitted by these Terms or with our prior written consent.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">7. Fees and Payment</h2>
-              <p>
-                Certain features of our Service may be subject to fees. All fees are clearly displayed before you commit to any payment. We accept various payment methods as listed on our platform. All payments are processed securely through our payment partners.
-              </p>
-              <p>
-                Fees paid are non-refundable unless otherwise specified. We reserve the right to change our fees at any time. Any changes will be effective immediately upon posting on our platform. Your continued use of paid features after such changes constitutes acceptance of the new fees.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">8. Termination</h2>
-              <p>
-                Fast Portal may terminate or suspend your account and bar access to the Service immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever, including without limitation if you breach the Terms.
-              </p>
-              <p>
-                Upon termination, your right to use the Service will cease immediately. All provisions of the Terms which by their nature should survive termination shall survive, including ownership provisions, warranty disclaimers, and limitations of liability.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">9. Limitation of Liability</h2>
-              <p>
-                In no event shall Fast Portal, our directors, employees, partners, agents, suppliers, or affiliates be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of the Service.
-              </p>
-              <p>
-                Our total liability to you for all claims arising from or relating to the Service shall not exceed the amount you have paid to us in the twelve (12) months preceding the claim.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">10. Governing Law</h2>
-              <p>
-                These Terms shall be interpreted and governed by the laws of Pakistan, without regard to conflict of law provisions. Any disputes arising from these Terms shall be resolved in the courts of Islamabad, Pakistan.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">11. Changes to Terms</h2>
-              <p>
-                We reserve the right to modify these Terms at any time. If we make material changes, we will notify you by email or by posting a notice on our website prior to the effective date of changes. Your continued use of the Service after such modifications constitutes acceptance of the updated Terms.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">12. Contact Information</h2>
-              <p>
-                If you have any questions about these Terms, please contact us at:
-              </p>
-              <div className="mt-4 space-y-2">
-                <p><strong>Email:</strong> legal@fastportal.com</p>
-                <p><strong>Phone:</strong> +92 310 0570707</p>
-                <p><strong>Address:</strong> G-9 Markaz, Islamabad, Pakistan</p>
-              </div>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">13. Service Availability</h2>
-              <p>
-                Fast Portal strives to maintain high availability of our Service, but we cannot guarantee uninterrupted access. We may perform maintenance, updates, or upgrades that may temporarily disrupt service availability. We are not liable for any losses or damages resulting from service interruptions.
-              </p>
-              <p>
-                We reserve the right to modify, suspend, or discontinue any part of the Service at any time, with or without notice. We will not be liable to you or any third party for any modification, suspension, or discontinuance of the Service.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">14. Third-Party Services</h2>
-              <p>
-                Our Service may contain links to third-party websites or services. We are not responsible for the content, privacy policies, or practices of any third-party websites or services. Your use of third-party services is governed by their respective terms of service and privacy policies.
-              </p>
-              <p>
-                We may also integrate with third-party services such as payment processors, background check providers, and travel booking services. These third parties have their own privacy policies and terms of service. We encourage you to review these policies carefully.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">15. Disclaimer of Warranties</h2>
-              <p>
-                Our Service is provided on an "AS IS" and "AS AVAILABLE" basis. Fast Portal makes no representations or warranties of any kind, express or implied, as to the operation of our Service or the information, content, materials, or products included on our Service.
-              </p>
-              <p>
-                You expressly agree that your use of our Service is at your sole risk. To the fullest extent permissible by applicable law, we disclaim all warranties, express or implied, including implied warranties of merchantability, fitness for a particular purpose, and non-infringement.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">16. Indemnification</h2>
-              <p>
-                You agree to defend, indemnify, and hold harmless Fast Portal and our officers, directors, employees, agents, and affiliates from and against any and all claims, damages, obligations, losses, liabilities, costs, or debt, and expenses (including but not limited to attorney's fees).
-              </p>
-              <p>
-                This includes claims arising from your use of the Service, your violation of these Terms, or your violation of any rights of another. We reserve the right to assume the exclusive defense and control of any matter otherwise subject to indemnification by you.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="heading-standard text-xl mb-4">17. Severability</h2>
-              <p>
-                If any provision of these Terms is found to be unenforceable or invalid, that provision will be limited or eliminated to the minimum extent necessary so that the remaining Terms will otherwise remain in full force and effect and enforceable.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="mb-4 text-xl font-semibold text-white">18. Entire Agreement</h2>
-              <p>
-                These Terms, together with our Privacy Policy, constitute the entire agreement between you and Fast Portal concerning the Service. These Terms supersede all prior agreements between you and Fast Portal regarding the Service.
-              </p>
-            </section>
+        {/* Last Updated */}
+        <div className="bg-blue-50 rounded-xl p-6 mb-12">
+          <div className="text-center">
+            <p className="text-blue-900 font-semibold">
+              Last Updated: March 15, 2026
+            </p>
+            <p className="text-blue-800 text-sm mt-2">
+              These terms may be updated periodically. Continued use constitutes acceptance of any changes.
+            </p>
           </div>
         </div>
 
-        <div className="mt-12 card-standard">
-          <p className="text-center text-sm text-standard">
-            Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-          </p>
+        {/* Table of Contents */}
+        <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            Table of Contents
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-3">
+              <a href="#acceptance" className="text-blue-600 hover:text-blue-700 font-medium block">
+                1. Acceptance of Terms
+              </a>
+              <a href="#account-creation" className="text-blue-600 hover:text-blue-700 font-medium block">
+                2. Account Creation and Security
+              </a>
+              <a href="#user-conduct" className="text-blue-600 hover:text-blue-700 font-medium block">
+                3. User Conduct and Responsibilities
+              </a>
+              <a href="#job-postings" className="text-blue-600 hover:text-blue-700 font-medium block">
+                4. Job Postings and Applications
+              </a>
+              <a href="#employer-responsibilities" className="text-blue-600 hover:text-blue-700 font-medium block">
+                5. Employer Responsibilities
+              </a>
+            </div>
+            <div className="space-y-3">
+              <a href="#intellectual-property" className="text-blue-600 hover:text-blue-700 font-medium block">
+                6. Intellectual Property
+              </a>
+              <a href="#fees" className="text-blue-600 hover:text-blue-700 font-medium block">
+                7. Fees and Payments
+              </a>
+              <a href="#termination" className="text-blue-600 hover:text-blue-700 font-medium block">
+                8. Account Termination
+              </a>
+              <a href="#disclaimers" className="text-blue-600 hover:text-blue-700 font-medium block">
+                9. Disclaimers and Limitations
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="space-y-12">
+          {/* Section 1 */}
+          <section id="acceptance" className="bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              1. Acceptance of Terms
+            </h2>
+            <div className="space-y-4">
+              <p className="text-gray-600">
+                By accessing or using Fast Job Career, you agree to be bound by these 
+                Terms of Service and our Privacy Policy. If you do not agree to these terms, 
+                you may not use our services.
+              </p>
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h3 className="text-lg font-bold text-gray-900 mb-3">Your Agreement</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>You are at least 18 years old or have parental consent</li>
+                  <li>You have the legal capacity to enter into these terms</li>
+                  <li>You will comply with all applicable laws and regulations</li>
+                  <li>You will provide accurate and complete information</li>
+                  <li>You will maintain the security of your account credentials</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 2 */}
+          <section id="account-creation" className="bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              2. Account Creation and Security
+            </h2>
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Account Requirements</h3>
+                <p className="text-gray-600 mb-4">
+                  To create an account, you must:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Provide accurate, current, and complete information</li>
+                  <li>Use a valid email address and create a secure password</li>
+                  <li>Agree to receive communications from Fast Job Career</li>
+                  <li>Not use another person's account without permission</li>
+                  <li>Update your information when it changes</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Account Security</h3>
+                <p className="text-gray-600 mb-4">
+                  You are responsible for:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Maintaining the confidentiality of your login credentials</li>
+                  <li>Notifying us immediately of unauthorized access</li>
+                  <li>Ensuring your device security when accessing our services</li>
+                  <li>Logging out of shared or public devices</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Account Types</h3>
+                <p className="text-gray-600 mb-4">
+                  We offer different account types:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li><strong>Job Seeker Account:</strong> For individuals seeking employment</li>
+                  <li><strong>Employer Account:</strong> For companies posting jobs and hiring</li>
+                  <li><strong>Partner Account:</strong> For recruitment agencies and partners</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 3 */}
+          <section id="user-conduct" className="bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              3. User Conduct and Responsibilities
+            </h2>
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Prohibited Activities</h3>
+                <p className="text-gray-600 mb-4">
+                  You agree not to engage in any of the following prohibited activities:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Providing false, misleading, or inaccurate information</li>
+                  <li>Impersonating any person or entity</li>
+                  <li>Harassing, abusing, or harming other users</li>
+                  <li>Posting fraudulent or scam job listings</li>
+                  <li>Violating any applicable laws or regulations</li>
+                  <li>Using automated tools to access our platform</li>
+                  <li>Interfering with or disrupting our services</li>
+                  <li>Attempting to gain unauthorized access to our systems</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Content Standards</h3>
+                <p className="text-gray-600 mb-4">
+                  All content you provide must:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Be accurate, truthful, and non-deceptive</li>
+                  <li>Not infringe on any third-party rights</li>
+                  <li>Not contain viruses, malware, or harmful code</li>
+                  <li>Not be obscene, offensive, or inappropriate</li>
+                  <li>Comply with all applicable laws and regulations</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Communication Guidelines</h3>
+                <p className="text-gray-600 mb-4">
+                  When communicating with other users, you must:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Be professional and respectful at all times</li>
+                  <li>Not engage in harassment or discrimination</li>
+                  <li>Not share personal information without consent</li>
+                  <li>Not use our platform for spam or unsolicited communications</li>
+                  <li>Respond to legitimate inquiries in a timely manner</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 4 */}
+          <section id="job-postings" className="bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              4. Job Postings and Applications
+            </h2>
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Job Posting Requirements</h3>
+                <p className="text-gray-600 mb-4">
+                  Employers must ensure job postings:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Are accurate, complete, and not misleading</li>
+                  <li>Comply with all applicable labor laws</li>
+                  <li>Do not discriminate based on protected characteristics</li>
+                  <li>Include clear job descriptions and requirements</li>
+                  <li>Provide accurate compensation information</li>
+                  <li>Are removed when filled or no longer available</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Application Process</h3>
+                <p className="text-gray-600 mb-4">
+                  Regarding job applications:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Applications are made through our platform only</li>
+                  <li>We do not guarantee employment or interview opportunities</li>
+                  <li>Employers may contact applicants directly</li>
+                  <li>We are not responsible for hiring decisions</li>
+                  <li>Applicants should verify employer legitimacy</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Application Fees</h3>
+                <p className="text-gray-600 mb-4">
+                  Important information about fees:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Job seekers can apply for jobs free of charge</li>
+                  <li>Employers pay fees for premium job posting features</li>
+                  <li>We never charge job seekers for applying to jobs</li>
+                  <li>Any payment requests outside our platform are suspicious</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 5 */}
+          <section id="employer-responsibilities" className="bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              5. Employer Responsibilities
+            </h2>
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Account Management</h3>
+                <p className="text-gray-600 mb-4">
+                  Employers are responsible for:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Maintaining accurate company information</li>
+                  <li>Responding to applicant inquiries promptly</li>
+                  <li>Updating job postings when positions are filled</li>
+                  <li>Managing user permissions and access levels</li>
+                  <li>Protecting account credentials and sensitive data</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Hiring Practices</h3>
+                <p className="text-gray-600 mb-4">
+                  Employers must adhere to:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Fair and non-discriminatory hiring practices</li>
+                  <li>Compliance with local labor laws and regulations</li>
+                  <li>Transparent communication about job requirements</li>
+                  <li>Timely response to qualified applicants</li>
+                  <li>Professional conduct throughout the hiring process</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Data Protection</h3>
+                <p className="text-gray-600 mb-4">
+                  Regarding applicant data:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Use applicant data only for legitimate hiring purposes</li>
+                  <li>Protect applicant privacy and confidentiality</li>
+                  <li>Comply with data protection regulations</li>
+                  <li>Delete applicant data when no longer needed</li>
+                  <li>Not share data without applicant consent</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 6 */}
+          <section id="intellectual-property" className="bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              6. Intellectual Property
+            </h2>
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Platform Content</h3>
+                <p className="text-gray-600 mb-4">
+                  Fast Job Career owns and retains all rights to:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Platform design, functionality, and features</li>
+                  <li>Algorithms, matching systems, and proprietary technology</li>
+                  <li>Brand names, logos, and trademarks</li>
+                  <li>User-generated content posted on our platform</li>
+                  <li>Analytics and aggregated usage data</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">User Content</h3>
+                <p className="text-gray-600 mb-4">
+                  Regarding your content:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>You retain ownership of your original content</li>
+                  <li>You grant us license to use your content for our services</li>
+                  <li>You represent you have rights to all content you provide</li>
+                  <li>You grant us right to modify, distribute, and display your content</li>
+                  <li>You may remove your content at any time</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Third-Party Content</h3>
+                <p className="text-gray-600 mb-4">
+                  You may not:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Use copyrighted material without permission</li>
+                  <li>Infringe on trademarks, patents, or other intellectual property</li>
+                  <li>Post content that violates third-party rights</li>
+                  <li>Reverse engineer or attempt to extract our source code</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 7 */}
+          <section id="fees" className="bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              7. Fees and Payments
+            </h2>
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Service Fees</h3>
+                <p className="text-gray-600 mb-4">
+                  Our fee structure includes:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li><strong>Free Services:</strong> Basic job searching and profile creation</li>
+                  <li><strong>Premium Features:</strong> Enhanced visibility, advanced matching</li>
+                  <li><strong>Employer Plans:</strong> Job posting credits, applicant tracking</li>
+                  <li><strong>Partner Programs:</strong> Commission-based recruitment services</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Payment Terms</h3>
+                <p className="text-gray-600 mb-4">
+                  Regarding payments:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>All fees are non-refundable unless specified</li>
+                  <li>Prices may change with 30 days notice</li>
+                  <li>Payments are processed through secure third-party providers</li>
+                  <li>You are responsible for all applicable taxes</li>
+                  <li>Late payments may result in service suspension</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Billing Disputes</h3>
+                <p className="text-gray-600 mb-4">
+                  If you dispute a charge:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Contact us within 30 days of the charge</li>
+                  <li>Provide detailed information about the disputed charge</li>
+                  <li>We will investigate and respond within 15 business days</li>
+                  <li>Disputes may be subject to third-party payment processor policies</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 8 */}
+          <section id="termination" className="bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              8. Account Termination
+            </h2>
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">User Termination</h3>
+                <p className="text-gray-600 mb-4">
+                  You may terminate your account at any time:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>By contacting our support team</li>
+                  <li>Through your account settings</li>
+                  <li>Termination takes effect immediately</li>
+                  <li>You will lose access to premium features immediately</li>
+                  <li>Your data will be deleted within 30 days</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Platform Termination</h3>
+                <p className="text-gray-600 mb-4">
+                  We may terminate or suspend your account for:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Violation of these terms of service</li>
+                  <li>Suspicious or fraudulent activity</li>
+                  <li>Extended inactivity (no login for 12 months)</li>
+                  <li>Non-payment of fees</li>
+                  <li>Legal or regulatory requirements</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Post-Termination</h3>
+                <p className="text-gray-600 mb-4">
+                  Upon termination:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Your right to access the service terminates immediately</li>
+                  <li>We may retain certain data as required by law</li>
+                  <li>Outstanding fees become immediately due</li>
+                  <li>These terms survive termination where applicable</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 9 */}
+          <section id="disclaimers" className="bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              9. Disclaimers and Limitations
+            </h2>
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Service Availability</h3>
+                <p className="text-gray-600 mb-4">
+                  We provide services "as is" and make no warranties about:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Uninterrupted or error-free operation</li>
+                  <li>Accuracy or reliability of information</li>
+                  <li>Compatibility with your devices or software</li>
+                  <li>Availability of specific job opportunities</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Limitation of Liability</h3>
+                <p className="text-gray-600 mb-4">
+                  To the fullest extent permitted by law, Fast Job Career shall not be liable for:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Indirect, incidental, or consequential damages</li>
+                  <li>Lost profits or business opportunities</li>
+                  <li>Data loss or corruption</li>
+                  <li>Third-party actions or content</li>
+                  <li>Damages exceeding the amount you paid for services</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Indemnification</h3>
+                <p className="text-gray-600 mb-4">
+                  You agree to indemnify and hold harmless Fast Job Career from:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 ml-6">
+                  <li>Any claims arising from your violation of these terms</li>
+                  <li>Your use of our services</li>
+                  <li>Your violation of any third-party rights</li>
+                  <li>Any content you provide to our platform</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        {/* Footer */}
+        <div className="text-center mt-12">
+          <div className="bg-blue-50 rounded-xl p-8">
+            <h2 className="text-2xl font-bold text-blue-900 mb-4">
+              Questions About Our Terms?
+            </h2>
+            <p className="text-blue-800 mb-6">
+              If you have any questions about these Terms of Service or need clarification 
+              on any point, please don't hesitate to contact our legal team.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+                Contact Legal Team
+              </button>
+              <button className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+                Download Terms PDF
+              </button>
+            </div>
+            <div className="mt-4 text-blue-700 text-sm">
+              <p>Legal Contact: legal@fastjobcareer.com</p>
+              <p>Corporate Address: Islamabad, Pakistan</p>
+              <p>Registration: PTA/PPA Registered Company</p>
+            </div>
+          </div>
         </div>
       </div>
-    </StandardPageLayout>
+    </div>
   );
 }

@@ -90,15 +90,17 @@ export default function JobsCountryClient({
       setRssLoading(true);
       setRssError(null);
       try {
-        const response = await fetch(`/api/rss-jobs?country=${country}`);
-        
-        if (!response.ok) {
-          throw new Error(`Failed to fetch RSS jobs: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setRssJobs(data.jobs || []);
-        setRssMeta(data.meta || null);
+        // RSS feeds disabled for performance optimization
+        // External API calls are causing server slowdown
+        setRssJobs([]);
+        setRssMeta({
+          totalJobs: 0,
+          displayedJobs: 0,
+          successfulFeeds: 0,
+          failedFeeds: 0,
+          totalFeeds: 0,
+          message: 'RSS feeds temporarily disabled for performance optimization. Using Supabase data instead.'
+        });
       } catch (e) {
         setRssError(e instanceof Error ? e.message : "Error loading RSS jobs");
       } finally {
@@ -175,6 +177,8 @@ export default function JobsCountryClient({
         )}
       </div>
 
+      {/* RSS Section Hidden for Performance */}
+      {false && (
       <div className="job-page-card">
         <h2 className="card-title-jobs">
           Latest Jobs from RSS Feeds 
@@ -225,6 +229,7 @@ export default function JobsCountryClient({
           </>
         )}
       </div>
+      )}
 
       <div className="job-page-card">
         <h2 className="card-title-jobs">Careerjet Extended Listings</h2>
