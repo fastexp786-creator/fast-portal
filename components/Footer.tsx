@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="footer-grid">
         <div className="footer-col">
           <h4 className="footer-title">
-            Fast Job <span>Career</span>
+            Fast Portal <span>Career</span>
           </h4>
           <p className="brand-desc">
             Connect with overseas employers and find your dream job abroad. We&apos;ve
@@ -81,7 +81,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="footer-copy">&copy; 2026 Fast Job Career. All Rights Reserved.</div>
+      <div className="footer-copy">&copy; 2026 Fast Portal. All Rights Reserved.</div>
     </footer>
   );
 }

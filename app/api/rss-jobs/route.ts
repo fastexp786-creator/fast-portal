@@ -88,45 +88,17 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const feedUrls = RSS_FEED_URLS[country];
-    
-    // Use Promise.allSettled for better error handling - if one feed fails, others continue
-    const feedPromises = feedUrls.map(async (feedUrl) => {
-      return await fetchRSSFeed(feedUrl);
-    });
-
-    const feedResults = await Promise.allSettled(feedPromises);
-    
-    // Collect all successful jobs
-    const allJobs: RSSJob[] = [];
-    let successCount = 0;
-    let failureCount = 0;
-
-    feedResults.forEach((result, index) => {
-      if (result.status === 'fulfilled') {
-        allJobs.push(...result.value);
-        successCount++;
-      } else {
-        console.warn(`Feed ${feedUrls[index]} failed:`, result.reason);
-        failureCount++;
-      }
-    });
-
-    console.log(`RSS fetch summary for ${country}: ${successCount} successful, ${failureCount} failed feeds, ${allJobs.length} total jobs`);
-
-    // Sort by publication date (newest first) and limit to 50 jobs
-    const sortedJobs = allJobs
-      .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
-      .slice(0, 50);
-
+    // RSS feeds disabled for performance optimization
+    // External API calls are causing server slowdown
     return NextResponse.json({ 
-      jobs: sortedJobs,
+      jobs: [],
       meta: {
-        totalJobs: allJobs.length,
-        displayedJobs: sortedJobs.length,
-        successfulFeeds: successCount,
-        failedFeeds: failureCount,
-        totalFeeds: feedUrls.length
+        totalJobs: 0,
+        displayedJobs: 0,
+        successfulFeeds: 0,
+        failedFeeds: 0,
+        totalFeeds: 0,
+        message: 'RSS feeds temporarily disabled for performance optimization. Using Supabase data instead.'
       }
     });
 
