@@ -134,9 +134,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NextIntlClientProvider locale="en" messages={enMessages as any}>
           <GlobalLayout>{children}</GlobalLayout>
         </NextIntlClientProvider>

@@ -4,6 +4,12 @@ import type { NextRequest } from 'next/server'
 export function proxy(request: NextRequest) {
   const url = request.nextUrl
 
+  // Handle locale routing - redirect root to /en
+  if (url.pathname === '/') {
+    const newUrl = new URL('/en', request.url)
+    return NextResponse.redirect(newUrl, 307)
+  }
+
   // Fix common 404 errors: redirect /jobs/job-title to /job/job-title
   if (url.pathname.startsWith('/jobs/') && !url.pathname.includes('--')) {
     const slug = url.pathname.replace('/jobs/', '')
@@ -19,5 +25,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/jobs/:path*']
+  matcher: ['/', '/jobs/:path*']
 }

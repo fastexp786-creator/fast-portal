@@ -8,9 +8,23 @@ Sitemap: https://fast-portal.vercel.app/sitemap.xml
 Disallow: /api/
 Disallow: /_next/
 Disallow: /admin/
-Disallow: /auth/
 Disallow: /dashboard/
 Disallow: /*.json$
+Disallow: /temp/
+Disallow: /cache/
+Disallow: /logs/
+
+# Allow specific important paths
+Allow: /api/jobs
+Allow: /api/rss-jobs
+Allow: /sitemap.xml
+Allow: /robots.txt
+
+# Block authentication pages to prevent bot submissions
+Disallow: /auth/login
+Disallow: /auth/register
+Disallow: /auth/register/seeker
+Disallow: /auth/vendor-register
 
 # Crawl delay for better server performance
 Crawl-delay: 1
@@ -24,3 +38,20 @@ Allow: /
 
 User-agent: Slurp
 Allow: /
+
+# Specialized bots
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-Video
+Allow: /
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /

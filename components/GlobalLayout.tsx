@@ -4,7 +4,6 @@ import { AuthModalProvider } from "@/components/AuthModalProvider";
 import { TopBar } from "@/components/Header";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Newsletter from "@/components/Newsletter";
 import { NextIntlClientProvider } from "next-intl";
 import enMessages from "@/messages/en.json";
 
@@ -20,7 +19,6 @@ export default function GlobalLayout({
         <Header />
       </NextIntlClientProvider>
       {children}
-      <Newsletter />
       <Footer />
     </AuthModalProvider>
   );

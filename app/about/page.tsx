@@ -127,12 +127,46 @@ export default function AboutPage() {
               <p>
                 Fast Job Career stands as the world's premier job portal, combining
                 cutting-edge technology with human expertise to create unmatched
-                career opportunities globally.
+                career opportunities globally. Our platform serves as a comprehensive
+                ecosystem where ambitious professionals meet leading employers from
+                Gulf countries, European nations, the United Kingdom, and beyond.
               </p>
               <p>
-                Our commitment to excellence ensures that every candidate receives
-                personalized attention, while employers get access to top-tier talent
-                from around the world.
+                Founded with a vision to revolutionize international recruitment,
+                Fast Job Career has successfully placed thousands of candidates in
+                their dream positions across various industries including healthcare,
+                engineering, hospitality, construction, and technology. Our
+                sophisticated matching algorithm ensures that candidates are connected
+                with opportunities that align perfectly with their skills, experience,
+                and career aspirations.
+              </p>
+              <p>
+                What sets us apart is our unwavering commitment to transparency and
+                trust. Every employer on our platform undergoes rigorous verification
+                processes, and we provide complete support throughout the recruitment
+                journey - from initial application to final placement and beyond.
+                Our dedicated team of career consultants works tirelessly to ensure
+                that each candidate receives personalized guidance tailored to their
+                unique circumstances and goals.
+              </p>
+              <p>
+                Our integrated travel and visa services further streamline the
+                international job-seeking process. We understand that moving to a new
+                country involves more than just finding a job - it's about building a
+                new life. That's why we offer comprehensive relocation support,
+                including visa assistance, travel arrangements, and cultural orientation
+                programs to help candidates transition smoothly into their new roles
+                and environments.
+              </p>
+              <p>
+                Fast Job Career's success is built on three core pillars: innovation,
+                integrity, and impact. We continuously invest in advanced technologies
+                to enhance our platform's capabilities, maintain the highest ethical
+                standards in all our operations, and measure our success by the
+                positive impact we create in the lives of our candidates and the
+                businesses we serve. Our mission extends beyond mere job placement -
+                we aim to foster long-term career growth and create lasting value for
+                all stakeholders in the global employment ecosystem.
               </p>
             </div>
           </section>
