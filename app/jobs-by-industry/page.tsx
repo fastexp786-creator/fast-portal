@@ -40,7 +40,8 @@ export default async function JobsByIndustryPage() {
     .from('jobs')
     .select('*')
     .eq('status', 'active')
-    .order('priority_score DESC, created_at DESC');
+    .order('priority_score', { ascending: false })
+    .order('created_at', { ascending: false });
 
   if (error) {
     console.error('Error fetching jobs:', error);

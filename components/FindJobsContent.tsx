@@ -43,7 +43,8 @@ export default function FindJobsContent() {
         let query = supabase
           .from(JOBS_TABLE)
           .select("*")
-          .order("created_at", { ascending: false });
+          .order("priority_score", { ascending: false }) // ✅ FIXED: Added priority_score sorting
+          .order("created_at", { ascending: false }); // ✅ FIXED: Secondary sort
 
         if (sourceFilter) {
           query = query.eq("job_source", sourceFilter);
@@ -53,7 +54,7 @@ export default function FindJobsContent() {
         if (kw) {
           const like = `%${kw}%`;
           query = query.or(
-            `title.ilike.${like},category.ilike.${like},location.ilike.${like},country.ilike.${like}`
+            `title.ilike.${like},category.ilike.${like},location.ilike.${like},country.ilike.${like}` 
           );
         }
 

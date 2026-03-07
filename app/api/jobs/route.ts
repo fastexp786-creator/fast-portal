@@ -8,10 +8,11 @@ export async function GET(request: NextRequest) {
   const offset = parseInt(searchParams.get('offset') || '0');
 
   try {
-    // Fetch jobs with pagination
+    // Fetch jobs with pagination - FIXED SYNTAX
     const { data, error, count } = await supabase
       .from(JOBS_TABLE)
       .select('*', { count: 'exact' })
+      .order('priority_score', { ascending: false }) // ✅ FIXED
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
 
@@ -31,7 +32,7 @@ export async function GET(request: NextRequest) {
       return {
         ...job,
         description: customDesc,
-        seo_description: customDesc, // Additional field for SEO
+        seo_description: customDesc,
       };
     });
 

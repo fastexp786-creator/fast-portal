@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="footer-grid">
         <div className="footer-col">
           <h4 className="footer-title">
-            Fast Portal <span>Career</span>
+            Fast Job Career
           </h4>
           <p className="brand-desc">
             Connect with overseas employers and find your dream job abroad. We&apos;ve
@@ -19,10 +19,10 @@ export default function Footer() {
             <a href="https://x.com/fastjobcareer" target="_blank" rel="noopener noreferrer">
               <i className="fa-brands fa-x-twitter" />
             </a>
-            <a href="#">
+            <a href="https://www.linkedin.com/company/fastjobcareer/" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-linkedin-in" />
             </a>
-            <a href="#">
+            <a href="https://www.tiktok.com/@fastjobcareer" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-tiktok" />
             </a>
           </div>
@@ -81,7 +81,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="footer-copy">&copy; 2026 Fast Portal. All Rights Reserved.</div>
+      <div className="footer-copy">&copy; 2026 Fast Job Career. All Rights Reserved.</div>
     </footer>
   );
 }

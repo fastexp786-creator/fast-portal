@@ -33,7 +33,7 @@ export default function JobPostingSchema({ job }: JobPostingSchemaProps) {
     "hiringOrganization": {
       "@type": "Organization",
       "name": job.company,
-      "sameAs": window?.location?.origin
+      "sameAs": typeof window !== 'undefined' ? window?.location?.origin : 'https://fastjobcareer.com'
     },
     "jobLocation": {
       "@type": "Place",

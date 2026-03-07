@@ -76,7 +76,7 @@ export default async function JobDetailPage(
   const max = salaryMatch?.[2]?.replace(/,/g, "");
   const jobLocationType = /remote/i.test(desc) || /remote/i.test([job.location, job.country].filter(Boolean).join(" "))
     ? "TELECOMMUTE"
-    : "OnSite";
+    : "ONSITE";
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "JobPosting",
@@ -107,14 +107,14 @@ export default async function JobDetailPage(
       ? { "@type": "Country", "name": job.country }
       : undefined,
     "directApply": !!job.apply_url,
-    "baseSalary": currency && min ? {
+    "baseSalary": job.salary_min ? {
       "@type": "MonetaryAmount",
-      "currency": currency,
+      "currency": job.salary_currency || "PKR",
       "value": {
         "@type": "QuantitativeValue",
-        "value": Number(min),
-        "minValue": Number(min),
-        "maxValue": max ? Number(max) : undefined,
+        "value": job.salary_min,
+        "minValue": job.salary_min,
+        "maxValue": job.salary_max || undefined,
         "unitText": "MONTH"
       }
     } : undefined

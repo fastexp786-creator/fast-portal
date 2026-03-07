@@ -28,4 +28,7 @@ export interface JobRow {
   job_source?: JobSource | null;
   priority_score?: number | null;
   is_active?: boolean | null;
+  salary_min?: number | null;
+  salary_max?: number | null;
+  salary_currency?: string | null;
 }

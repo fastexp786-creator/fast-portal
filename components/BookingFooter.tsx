@@ -72,21 +72,21 @@ export default function BookingFooter() {
           { title: "About Us", url: "/about" },
           { title: "Careers", url: "/careers" },
           { title: "Press", url: "/press" },
-          { title: "Investor Relations", url: "/investors" },
+          { title: "Investor Relations", url: "/investor-relations" },
           { title: "Blog", url: "/blog" },
           { title: "Sustainability", url: "/sustainability" }
         ]
       },
       {
         id: "explore",
-        title: "Explore",
+        title: "Worldwide Travel Services",
         links: [
-          { title: "Jobs by Country", url: "/jobs/countries" },
-          { title: "Jobs by City", url: "/jobs/cities" },
-          { title: "Jobs by Airport", url: "/jobs/airports" },
-          { title: "Jobs by Industry", url: "/jobs/industries" },
-          { title: "Popular Jobs", url: "/jobs/popular" },
-          { title: "Remote Jobs", url: "/jobs/remote" }
+          { title: "Air Tickets", url: "/services/air-tickets" },
+          { title: "Luxury Stays", url: "/services/luxury-stays" },
+          { title: "Cruise Cloud", url: "/services/cruise-cloud" },
+          { title: "Umrah 2026", url: "/services/umrah-2026" },
+          { title: "Premium Rentals", url: "/services/premium-rentals" },
+          { title: "Visit Visa & Tours", url: "/services/visit-visa-tours" }
         ]
       },
       {
@@ -94,9 +94,9 @@ export default function BookingFooter() {
         title: "Partners",
         links: [
           { title: "Extranet Login", url: "/extranet" },
-          { title: "Partner Hub", url: "/partners" },
+          { title: "Partner Hub", url: "/partner-hub" },
           { title: "Advertise", url: "/advertise" },
-          { title: "Affiliate Program", url: "/affiliate" },
+          { title: "Affiliate Program", url: "/affiliate-program" },
           { title: "API Access", url: "/api" },
           { title: "Become a Partner", url: "/become-partner" }
         ]
@@ -105,12 +105,12 @@ export default function BookingFooter() {
         id: "support",
         title: "Support",
         links: [
-          { title: "Help Center", url: "/help" },
+          { title: "Help Center", url: "/help-center" },
           { title: "Contact Us", url: "/contact" },
           { title: "Safety Resource Center", url: "/safety" },
-          { title: "Report Issue", url: "/report" },
+          { title: "Report Issue", url: "/report-issue" },
           { title: "FAQ", url: "/faq" },
-          { title: "Live Chat", url: "/chat" }
+          { title: "Live Chat", url: "/live-chat" }
         ]
       },
       {
@@ -130,11 +130,11 @@ export default function BookingFooter() {
         title: "Apps & Social",
         links: [
           { title: "Mobile Apps", url: "/apps" },
-          { title: "Facebook", url: "https://facebook.com/FastJobCareer" },
-          { title: "Twitter", url: "https://twitter.com/fastjobcareer" },
-          { title: "LinkedIn", url: "https://linkedin.com/company/fastjobcareer" },
-          { title: "TikTok", url: "https://tiktok.com/@fastjobcareer" },
-          { title: "Instagram", url: "https://instagram.com/fastjobcareer" }
+          { title: "Facebook", url: "https://facebook.com/FastJobCareer", external: true },
+          { title: "Twitter", url: "https://twitter.com/fastjobcareer", external: true },
+          { title: "LinkedIn", url: "https://linkedin.com/company/fastjobcareer", external: true },
+          { title: "TikTok", url: "https://tiktok.com/@fastjobcareer", external: true },
+          { title: "Instagram", url: "https://instagram.com/fastjobcareer", external: true }
         ]
       }
     ],
@@ -240,93 +240,117 @@ export default function BookingFooter() {
               <div className="hidden lg:block">
                 <h3 className="font-bold text-lg mb-4 text-white">{section.title}</h3>
                 <ul className="space-y-2">
-                  {section.links.map((link: { title: string; url: string }, index: number) => (
+                  {section.links.map((link: { title: string; url: string; external?: boolean }, index: number) => (
                     <li key={index}>
-                      <Link 
-                        href={link.url}
-                        className="text-gray-300 hover:text-white transition-colors text-sm"
-                      >
-                        {link.title}
-                      </Link>
+                      {link.external ? (
+                        <a 
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-300 hover:text-white transition-colors text-sm"
+                        >
+                          {link.title}
+                        </a>
+                      ) : (
+                        <Link 
+                          href={link.url}
+                          className="text-gray-300 hover:text-white transition-colors text-sm"
+                        >
+                          {link.title}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              {/* Mobile View - Accordion */}
-              <div className="lg:hidden">
-                <button
-                  onClick={() => toggleSection(section.id)}
-                  className="w-full flex items-center justify-between font-bold text-lg mb-4 text-white py-2"
-                >
-                  {section.title}
-                  <span className="text-gray-400">
-                    {expandedSections[section.id] ? '−' : '+'}
-                  </span>
-                </button>
-                {expandedSections[section.id] && (
-                  <ul className="space-y-2 mb-4">
-                    {section.links.map((link: { title: string; url: string }, index: number) => (
-                      <li key={index}>
+            {/* Mobile View - Accordion */}
+            <div className="lg:hidden">
+              <button
+                onClick={() => toggleSection(section.id)}
+                className="w-full flex items-center justify-between font-bold text-lg mb-4 text-white py-2"
+              >
+                {section.title}
+                <span className="text-gray-400">
+                  {expandedSections[section.id] ? '−' : '+'}
+                </span>
+              </button>
+              {expandedSections[section.id] && (
+                <ul className="space-y-2 mb-4">
+                  {section.links.map((link: { title: string; url: string; external?: boolean }, index: number) => (
+                    <li key={index}>
+                      {link.external ? (
+                        <a 
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-300 hover:text-white transition-colors text-sm block py-1"
+                        >
+                          {link.title}
+                        </a>
+                      ) : (
                         <Link 
                           href={link.url}
                           className="text-gray-300 hover:text-white transition-colors text-sm block py-1"
                         >
                           {link.title}
                         </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Payment Methods */}
-        <div className="border-t border-gray-800 mt-8 pt-6">
-          <div className="flex flex-wrap items-center justify-between gap-6">
-            <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-400">Payment Methods:</span>
-              <div className="flex gap-2">
-                {footerData?.paymentMethods.map((method: PaymentMethod, index: number) => (
-                  <button
-                    key={index}
-                    onClick={() => window.open(`/payment-methods?method=${method.name.toLowerCase().replace(/\s+/g, '-')}`, '_blank')}
-                    className="bg-gray-800 hover:bg-gray-700 p-2 rounded-lg transition-all hover:scale-110 border border-gray-700"
-                    title={method.name}
-                  >
-                    <span className="text-2xl">{method.icon}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-4">
-              <a 
-                href={footerData.apps.playStore}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-black hover:bg-gray-800 px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition-colors"
-              >
-                <span>📱</span>
-                Play Store
-              </a>
-              <a 
-                href={footerData.apps.appStore}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-black hover:bg-gray-800 px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition-colors"
-              >
-                <span>🍎</span>
-                App Store
-              </a>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
-        </div>
+        ))}
+      </div>
+    </div>
 
-        {/* Offices and Contact */}
-        <div className="border-t border-gray-800 mt-6 pt-6">
+      {/* Payment Methods */}
+      <div className="border-t border-gray-800 mt-8 pt-6">
+        <div className="flex flex-wrap items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-gray-400">Payment Methods:</span>
+            <div className="flex gap-2">
+              {footerData?.paymentMethods.map((method: PaymentMethod, index: number) => (
+                <button
+                  key={index}
+                  onClick={() => typeof window !== 'undefined' && window.open(`/payment-methods?method=${method.name.toLowerCase().replace(/\s+/g, '-')}`, '_blank')}
+                  className="bg-gray-800 hover:bg-gray-700 p-2 rounded-lg transition-all hover:scale-110 border border-gray-700"
+                  title={method.name}
+                >
+                  <span className="text-2xl">{method.icon}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <a 
+              href={footerData.apps.playStore}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-black hover:bg-gray-800 px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition-colors"
+            >
+              <span>📱</span>
+              Play Store
+            </a>
+            <a 
+              href={footerData.apps.appStore}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-black hover:bg-gray-800 px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition-colors"
+            >
+              <span>🍎</span>
+              App Store
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Offices and Contact */}
+      <div className="border-t border-gray-800 mt-6 pt-6">
+        <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
             <div>
               <h4 className="font-semibold mb-3 text-white">📍 Offices</h4>
@@ -367,10 +391,10 @@ export default function BookingFooter() {
             <div>
               <h4 className="font-semibold mb-3 text-white">🔗 Quick Links</h4>
               <div className="space-y-2 text-gray-300">
-                <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-                <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
-                <Link href="/sitemap" className="hover:text-white transition-colors">Sitemap</Link>
-                <Link href="/accessibility" className="hover:text-white transition-colors">Accessibility</Link>
+                <Link href="/privacy" className="hover:text-white transition-colors block">Privacy Policy</Link>
+                <Link href="/terms" className="hover:text-white transition-colors block">Terms of Service</Link>
+                <Link href="/sitemap" className="hover:text-white transition-colors block">Sitemap</Link>
+                <Link href="/accessibility" className="hover:text-white transition-colors block">Accessibility</Link>
               </div>
             </div>
           </div>
@@ -385,7 +409,7 @@ export default function BookingFooter() {
               © 2026 {footerData?.company.name}. All Rights Reserved.
             </div>
             <div className="flex items-center gap-4">
-              <span>Powered by Fast Portal Technology</span>
+              <span>Powered by Fast Job Career Technology</span>
               <span>•</span>
               <span>Version 2.0</span>
             </div>
@@ -395,7 +419,7 @@ export default function BookingFooter() {
 
       {/* Back to Top Button */}
       <button
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onClick={() => typeof window !== 'undefined' && window.scrollTo({ top: 0, behavior: 'smooth' })}
         className="fixed bottom-4 right-4 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all z-50 lg:hidden"
         title="Back to top"
       >
