@@ -199,9 +199,6 @@ export default function FindJobsContent() {
             <i className="fas fa-sliders-h" />
             Filters
           </button>
-          <span className="text-[11px] font-medium text-gray-500">
-            {filteredJobs.length} matches
-          </span>
         </div>
 
         {/* Desktop sidebar */}
@@ -226,7 +223,7 @@ export default function FindJobsContent() {
 
         <main className="find-jobs-main flex-1">
           <h1 className="text-3xl font-extrabold text-navy-900 mb-6 border-b pb-4">
-            Premium Job Portal <span className="text-sm font-normal text-gray-400">({filteredJobs.length} Positions)</span>
+            Premium Job Portal
           </h1>
 
           <FindJobsSearchBar
@@ -320,9 +317,6 @@ export default function FindJobsContent() {
                         Explore More Jobs
                       </span>
                     </button>
-                    <p className="text-gray-400 text-xs font-medium uppercase">
-                      Displaying {displayLimit} of {filteredJobs.length} Vacancies
-                    </p>
                   </div>
                 )}
               </>

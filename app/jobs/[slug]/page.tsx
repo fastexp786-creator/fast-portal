@@ -55,12 +55,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function JobsPage({ params }: Props) {
   const { slug } = await params;
+  console.log('🔍 Server: JobsPage slug:', slug);
+  console.log('🔍 Server: Is country slug?', JOB_COUNTRY_SLUGS.includes(slug as any));
 
   // Case 1: Country
   if (JOB_COUNTRY_SLUGS.includes(slug as any)) {
     const country = slug as JobCountrySlug;
     const config = JOB_COUNTRY_CONFIG[country];
     const cjLocation = CAREERJET_LOCATION[country];
+    
+    console.log('🔍 Server: Country config loaded:', { country, config: !!config, cjLocation });
 
     return (
       <main className="min-h-screen bg-[var(--light)] dark:bg-[#020617] text-[var(--text-color)]">
@@ -80,5 +84,6 @@ export default async function JobsPage({ params }: Props) {
 
   // Case 2: Not a country -> Redirect to singular /job/[slug]
   // This resolves the conflict by routing non-country slugs to the job detail page
+  console.log('🔍 Server: Redirecting to job detail for slug:', slug);
   redirect(`/job/${slug}`);
 }

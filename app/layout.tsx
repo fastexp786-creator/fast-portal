@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { SITE_URL } from "@/lib/constants";
 import GlobalLayout from "@/components/GlobalLayout";
 import "./globals.css";
@@ -7,16 +6,6 @@ import { NextIntlClientProvider } from "next-intl";
 import enMessages from "@/messages/en.json";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 // Root metadata – child pages override. WordPress-style title template.
 export const metadata: Metadata = {
@@ -134,7 +123,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className="antialiased">
         <NextIntlClientProvider locale="en" messages={enMessages as any}>
           <GlobalLayout>{children}</GlobalLayout>
         </NextIntlClientProvider>

@@ -45,6 +45,7 @@ export default function JobsCountryClient({
   config,
   cjLocation,
 }: Props) {
+  console.log('🚀 JobsCountryClient mounted with country:', country);
   const router = useRouter();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [rssJobs, setRssJobs] = useState<RSSJob[]>([]);
@@ -56,27 +57,71 @@ export default function JobsCountryClient({
   const [displayLimit, setDisplayLimit] = useState(12);
 
   useEffect(() => {
+    console.log('🔄 useEffect triggered for country:', country);
     async function loadJobs() {
+      console.log('🚀 Loading jobs for country:', country);
       setLoading(true);
       setError(null);
       try {
-        const { data, error } = await supabase
+        // Dynamic country filter based on slug
+        const countryMap = {
+          "india-jobs": "India",
+          "uae-jobs": "United Arab Emirates", 
+          "pakistan-jobs": "Pakistan",
+          "usa-jobs": "USA",
+          "uk-jobs": "United Kingdom",
+          "saudi-arabia-jobs": "Saudi Arabia",
+          "qatar-jobs": "Qatar",
+          "kuwait-jobs": "Kuwait",
+          "oman-jobs": "Oman",
+          "bahrain-jobs": "Bahrain",
+          "malaysia-jobs": "Malaysia"
+        };
+        
+        const countryName = countryMap[country] || "India";
+        
+        console.log('🔍 Country slug:', country);
+        console.log('🔍 Mapped country name:', countryName);
+        
+        // First try exact match, if no results try alternative names
+        let { data, error } = await supabase
           .from(JOBS_TABLE)
           .select("*")
+          .eq("country", countryName)
           .order("created_at", { ascending: false });
+          
+        // If no results for UAE, try "UAE" as well
+        if (country === "uae-jobs" && (!data || data.length === 0)) {
+          console.log('🔍 Trying alternative UAE name...');
+          const result = await supabase
+            .from(JOBS_TABLE)
+            .select("*")
+            .eq("country", "UAE")
+            .order("created_at", { ascending: false });
+          data = result.data;
+          error = result.error;
+        }
 
-        if (error) throw error;
+        console.log('📊 Supabase response:', { data: data?.length, error });
 
-        const filtered =
-          (data ?? []).filter((j) =>
-            [COUNTRY_SLUG_TO_FILTER[country]].some(
-              (c) =>
-                (j.country || "").toLowerCase().includes(c.toLowerCase())
-            )
-          );
+        if (error) {
+          console.error('❌ Supabase error:', error);
+          throw error;
+        }
 
-        setJobs(filtered);
+        const countryFilter = COUNTRY_SLUG_TO_FILTER[country];
+        console.log('🔍 Debug - Country slug:', country);
+        console.log('🔍 Debug - Country filter:', countryFilter);
+        console.log('🔍 Debug - Total jobs from DB:', data?.length || 0);
+        
+        // Show first 5 jobs for debugging
+        console.log('📋 Sample jobs:', data?.slice(0, 5).map(j => ({ id: j.id, country: j.country, title: j.title })));
+        
+        // Direct data from Supabase - already filtered for India
+        console.log('🔍 Debug - India jobs from DB:', data?.length || 0);
+        setJobs(data || []);
       } catch (e) {
+        console.error('❌ Load error:', e);
         setError(e instanceof Error ? e.message : "Error loading jobs");
       } finally {
         setLoading(false);
@@ -140,7 +185,7 @@ export default function JobsCountryClient({
       </div>
 
       <div className="job-page-card">
-        <h2 className="card-title-jobs">Latest Job Vacancies ({jobs.length})</h2>
+        <h2 className="card-title-jobs">Latest Job Vacancies</h2>
 
         {loading ? (
           <div className="job-loading">
