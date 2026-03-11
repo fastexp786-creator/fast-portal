@@ -52,7 +52,8 @@ export function AuthModalProvider({ children }: { children: React.ReactNode }) {
       }
       setOpen(false);
       setPendingUrl(null);
-      window.location.href = "/dashboard";
+      // Remove automatic redirect to dashboard
+      // window.location.href = "/dashboard";
     };
 
     const { data: sub } = supabase.auth.onAuthStateChange(async (_event, session) => {

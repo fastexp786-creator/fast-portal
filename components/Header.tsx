@@ -89,8 +89,8 @@ export function TopBar() {
         </span>
       </div>
       <div className="auth-btns flex items-center gap-4">
-        <Link href="/dashboard" className="px-3 py-1 rounded-md bg-amber-400 text-[#0a2351] font-semibold text-sm hover:bg-amber-300 transition-colors">
-          {t("dashboard")}
+        <Link href="/auth/login" className="px-3 py-1 rounded-md bg-blue-500 text-white font-semibold text-sm hover:bg-blue-600 transition-colors">
+          Sign in
         </Link>
         <Link href="/auth/register" className="px-3 py-1 rounded-md bg-green-500 text-white font-semibold text-sm hover:bg-green-600 transition-colors">
           {t("register")}
@@ -107,7 +107,7 @@ export default function Header() {
       <header className="flex w-full flex-nowrap items-center justify-between px-4">
         <Link href="/" className="brand-text-only">
           <span className="text-base sm:text-lg md:text-xl">
-            Fast Job <span>Career</span>
+            Fast <span>Job Career</span>
           </span>
         </Link>
         <nav className="nav-pages flex flex-nowrap items-center gap-4 overflow-x-auto whitespace-nowrap md:gap-6">

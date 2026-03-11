@@ -1,8 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+import { JOBS_TABLE } from "@/lib/jobs-schema";
 
-const COUNTRIES = ["United Arab Emirates", "Saudi Arabia", "Qatar", "Oman", "Kuwait", "Bahrain", "Pakistan", "United Kingdom", "Poland", "Canada", "Germany", "Romania", "USA", "France"];
-const CATEGORIES = ["IT & Software", "Medical & Healthcare", "Construction", "Petrol Pump", "Hotel Management", "Driving", "Accounting", "Security"];
 const SALARIES = ["Any Salary", "1000 - 3000", "3000 - 7000", "7000 - 10000", "10000 - 15000", "15000+"];
 
 const TRAVEL_SERVICES = [
@@ -54,6 +54,74 @@ export default function FindJobsSidebar({
   const [showAllSalaries, setShowAllSalaries] = useState(false);
   const [selectedSalary, setSelectedSalary] = useState("Any Salary");
   const [localKeyword, setLocalKeyword] = useState("");
+  const [availableCountries, setAvailableCountries] = useState<string[]>([]);
+  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
+  const [countryJobCounts, setCountryJobCounts] = useState<Record<string, number>>({});
+  const [categoryJobCounts, setCategoryJobCounts] = useState<Record<string, number>>({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Load real data from database
+  useEffect(() => {
+    async function loadSidebarData() {
+      setIsLoading(true);
+      try {
+        console.log('🔍 Loading sidebar data...');
+        const { data, error } = await supabase
+          .from(JOBS_TABLE)
+          .select('country, category')
+          .eq('status', 'active');
+        
+        if (error) {
+          console.error('❌ Sidebar data error:', error);
+          throw error;
+        }
+        
+        const jobs = data || [];
+        console.log('📊 Sidebar jobs loaded:', jobs.length);
+        
+        // Count jobs by country
+        const countryCounts: Record<string, number> = {};
+        jobs.forEach(job => {
+          if (job.country) {
+            countryCounts[job.country] = (countryCounts[job.country] || 0) + 1;
+          }
+        });
+        
+        // Count jobs by category
+        const categoryCounts: Record<string, number> = {};
+        jobs.forEach(job => {
+          if (job.category) {
+            categoryCounts[job.category] = (categoryCounts[job.category] || 0) + 1;
+          }
+        });
+        
+        console.log('🌍 Countries found:', Object.keys(countryCounts));
+        console.log('💼 Categories found:', Object.keys(categoryCounts));
+        
+        // Sort by job count (descending)
+        const sortedCountries = Object.entries(countryCounts)
+          .sort(([,a], [,b]) => b - a)
+          .map(([country]) => country);
+        
+        const sortedCategories = Object.entries(categoryCounts)
+          .sort(([,a], [,b]) => b - a)
+          .map(([category]) => category);
+        
+        setAvailableCountries(sortedCountries);
+        setAvailableCategories(sortedCategories);
+        setCountryJobCounts(countryCounts);
+        setCategoryJobCounts(categoryCounts);
+        
+        console.log('✅ Sidebar data loaded successfully');
+        
+      } catch (err) {
+        console.error('❌ Error loading sidebar data:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadSidebarData();
+  }, []);
 
   return (
     <aside className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden select-none w-full max-w-[280px]">
@@ -79,29 +147,57 @@ export default function FindJobsSidebar({
       {/* 2. COUNTRIES */}
       <div className="p-4 border-b border-gray-100">
         <SectionHeading title="Popular Countries" />
-        <div className="flex flex-col">
-          <FilterRow label="All Countries" isActive={!selectedCountry} onClick={() => onCountryChange("")} />
-          {(showAllCountries ? COUNTRIES : COUNTRIES.slice(0, 4)).map((c) => (
-            <FilterRow key={c} label={c} isActive={selectedCountry === c} onClick={() => onCountryChange(c)} />
-          ))}
-          <button onClick={() => setShowAllCountries(!showAllCountries)} className="text-[12px] font-bold text-blue-600 mt-2 text-left hover:underline">
-            {showAllCountries ? "Show Less" : `+ ${COUNTRIES.length - 4} more`}
-          </button>
-        </div>
+        {isLoading ? (
+          <div className="flex items-center justify-center py-4">
+            <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-300 border-t-blue-600 mr-2"></div>
+            <span className="text-sm text-gray-500">Loading...</span>
+          </div>
+        ) : (
+          <div className="flex flex-col">
+            <FilterRow label="All Countries" isActive={!selectedCountry} onClick={() => onCountryChange("")} />
+            {(showAllCountries ? availableCountries : availableCountries.slice(0, 4)).map((country) => (
+              <FilterRow 
+                key={country} 
+                label={`${country} (${countryJobCounts[country] || 0})`} 
+                isActive={selectedCountry === country} 
+                onClick={() => onCountryChange(country)} 
+              />
+            ))}
+            {availableCountries.length > 4 && (
+              <button onClick={() => setShowAllCountries(!showAllCountries)} className="text-[12px] font-bold text-blue-600 mt-2 text-left hover:underline">
+                {showAllCountries ? "Show Less" : `+ ${availableCountries.length - 4} more`}
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* 3. CATEGORIES */}
       <div className="p-4 border-b border-gray-100">
         <SectionHeading title="Job Categories" />
-        <div className="flex flex-col">
-          <FilterRow label="All Categories" isActive={!selectedCategory} onClick={() => onCategoryChange("")} />
-          {(showAllCategories ? CATEGORIES : CATEGORIES.slice(0, 4)).map((cat) => (
-            <FilterRow key={cat} label={cat} isActive={selectedCategory === cat} onClick={() => onCategoryChange(cat)} />
-          ))}
-          <button onClick={() => setShowAllCategories(!showAllCategories)} className="text-[12px] font-bold text-blue-600 mt-2 text-left hover:underline">
-            {showAllCategories ? "Show Less" : `+ ${CATEGORIES.length - 4} more`}
-          </button>
-        </div>
+        {isLoading ? (
+          <div className="flex items-center justify-center py-4">
+            <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-300 border-t-blue-600 mr-2"></div>
+            <span className="text-sm text-gray-500">Loading...</span>
+          </div>
+        ) : (
+          <div className="flex flex-col">
+            <FilterRow label="All Categories" isActive={!selectedCategory} onClick={() => onCategoryChange("")} />
+            {(showAllCategories ? availableCategories : availableCategories.slice(0, 4)).map((category) => (
+              <FilterRow 
+                key={category} 
+                label={`${category} (${categoryJobCounts[category] || 0})`} 
+                isActive={selectedCategory === category} 
+                onClick={() => onCategoryChange(category)} 
+              />
+            ))}
+            {availableCategories.length > 4 && (
+              <button onClick={() => setShowAllCategories(!showAllCategories)} className="text-[12px] font-bold text-blue-600 mt-2 text-left hover:underline">
+                {showAllCategories ? "Show Less" : `+ ${availableCategories.length - 4} more`}
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* 4. SALARY RANGE */}

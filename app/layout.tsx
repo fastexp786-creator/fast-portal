@@ -11,26 +11,26 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Fast Portal | Jobs, Travel & Services Platform",
-    template: "%s | Fast Portal",
+    default: "Fast Job Career | Jobs, Travel & Services Platform",
+    template: "%s | Fast Job Career",
   },
   description:
-    "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more. Connect with global opportunities and travel worldwide.",
-  keywords: "jobs, travel, air tickets, visa services, career portal, travel booking, job search, flights",
-  authors: [{ name: "Fast Portal" }],
-  creator: "Fast Portal",
-  publisher: "Fast Portal",
+    "Fast Job Career - Your one-stop platform for jobs, travel services, air tickets, visas, and more. Connect with global opportunities and travel worldwide.",
+  keywords: "jobs, travel, air tickets, visa services, career portal, travel booking, job search, flights, Fast Job Career",
+  authors: [{ name: "Fast Job Career" }],
+  creator: "Fast Job Career",
+  publisher: "Fast Job Career",
   openGraph: {
-    siteName: "Fast Portal",
+    siteName: "Fast Job Career",
     type: "website",
     locale: "en_US",
-    title: "Fast Portal | Jobs, Travel & Services Platform",
-    description: "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more.",
+    title: "Fast Job Career | Jobs, Travel & Services Platform",
+    description: "Fast Job Career - Your one-stop platform for jobs, travel services, air tickets, visas, and more.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fast Portal | Jobs, Travel & Services Platform",
-    description: "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more.",
+    title: "Fast Job Career | Jobs, Travel & Services Platform",
+    description: "Fast Job Career - Your one-stop platform for jobs, travel services, air tickets, visas, and more.",
   },
   robots: {
     index: true,
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   // WordPress plugins (Yoast/RankMath) verification – .env se add karo
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
-    // yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION,
+    yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION,
   },
 };
 
@@ -76,7 +76,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Fast Portal",
+              name: "Fast Job Career",
               description: "Your one-stop platform for jobs, travel services, air tickets, visas, and more",
               url: SITE_URL,
               potentialAction: {
@@ -86,7 +86,7 @@ export default function RootLayout({
               },
               publisher: {
                 "@type": "Organization",
-                name: "Fast Portal",
+                name: "Fast Job Career",
                 url: SITE_URL,
                 logo: {
                   "@type": "ImageObject",
@@ -106,7 +106,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "Fast Portal",
+              name: "Fast Job Career",
               description: "Leading platform for jobs, travel services, and global opportunities",
               url: SITE_URL,
               logo: {
@@ -117,8 +117,45 @@ export default function RootLayout({
                 "@type": "ContactPoint",
                 contactType: "customer service",
                 availableLanguage: "English",
+                telephone: "+92-310-0570707",
               },
               areaServed: "Worldwide",
+              address: {
+                "@type": "PostalAddress",
+                addressCountry: "PK",
+                addressLocality: "Islamabad",
+              },
+              sameAs: [
+                // Add social media URLs here when available
+              ],
+            }),
+          }}
+        />
+        {/* Job Posting Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Fast Job Career",
+              url: SITE_URL,
+              mainEntity: {
+                "@type": "ItemList",
+                numberOfItems: "1000+",
+                itemListElement: [
+                  {
+                    "@type": "JobPosting",
+                    title: "Various Job Opportunities",
+                    description: "Find your dream job with Fast Job Career",
+                    employmentType: "FULL_TIME",
+                    hiringOrganization: {
+                      "@type": "Organization",
+                      name: "Fast Job Career",
+                    },
+                  }
+                ],
+              },
             }),
           }}
         />

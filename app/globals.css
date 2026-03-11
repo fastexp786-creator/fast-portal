@@ -170,7 +170,7 @@ nav.nav-pages a:hover::after { width: 100%; }
 /* --- 3. TICKER --- */
 .ticker-container { background: #000; height: 38px; display: flex; align-items: center; overflow: hidden; border-bottom: 3px solid var(--accent); position: relative; }
 .ticker-label { background: var(--danger); color: white; padding: 0 15px; height: 100%; display: flex; align-items: center; font-weight: bold; font-size: 11px; z-index: 5; position: absolute; left: 0; }
-.ticker-content { display: flex; white-space: nowrap; padding-left: 100%; animation: ticker-move 25s linear infinite; }
+.ticker-content { display: flex; white-space: nowrap; padding-left: 100%; animation: ticker-move 60s linear infinite; }
 .ticker-item { color: var(--accent); font-weight: 600; font-size: 12px; padding-right: 40px; }
 @keyframes ticker-move { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
@@ -326,8 +326,33 @@ nav.nav-pages a:hover::after { width: 100%; }
 
 /* --- 5. GRID & CARDS --- */
 section { padding: 70px 5%; }
-.mid-title { text-align: center; margin-bottom: 50px; }
-.mid-title h2 { font-size: 38px; font-weight: 900; color: #000000; text-transform: uppercase; }
+.mid-title { 
+  text-align: center; 
+  margin-bottom: 50px; 
+  padding: 0 16px;
+}
+.mid-title h2 { 
+  font-size: clamp(24px, 5vw, 38px); 
+  font-weight: 900; 
+  color: #000000; 
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.mid-title p {
+  font-size: clamp(14px, 2vw, 18px);
+  color: #4A4A4A;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .mid-title {
+    margin-bottom: 32px;
+    padding: 0 12px;
+  }
+}
 .main-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; }
 .info-card { background: var(--card-bg); padding: 40px 25px; border-radius: 15px; text-align: center; border: 1px solid #eee; text-decoration: none; color: inherit; transition: 0.4s; }
 .info-card i { font-size: 45px; color: var(--danger); margin-bottom: 20px; }
@@ -336,7 +361,43 @@ section { padding: 70px 5%; }
 .info-card p { margin: 0; font-size: 14px; color: #4A4A4A; }
 
 /* --- 6. JOBS FEED --- */
-.jobs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+.jobs-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+  gap: 20px; 
+  max-width: 1200px; 
+  margin: 0 auto;
+  /* Mobile first approach */
+}
+
+@media (max-width: 640px) {
+  .jobs-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0 12px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .jobs-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .jobs-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .jobs-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
 .job-card { background: var(--card-bg); border-radius: 12px; padding: 25px; border: 1px solid #ddd; border-left: 6px solid var(--primary); transition: 0.4s; display: flex; flex-direction: column; justify-content: space-between; }
 .job-card:hover { transform: translateY(-10px); border-left-color: var(--danger); }
 .job-card h4 { margin: 0; color: var(--primary); font-size: 19px; font-weight: 700; }
@@ -346,7 +407,38 @@ section { padding: 70px 5%; }
 
 .hidden-jobs { display: none; margin-top: 20px; }
 .toggle-btn-container { text-align: center; margin-top: 40px; }
-.btn-view-more { background: var(--primary); color: white; border: none; padding: 15px 45px; border-radius: 50px; font-weight: 800; cursor: pointer; transition: 0.3s; }
+.btn-view-more { 
+  background: var(--primary); 
+  color: white; 
+  border: none; 
+  padding: 14px 32px; 
+  border-radius: 50px; 
+  font-weight: 800; 
+  cursor: pointer; 
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(10, 35, 81, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-view-more:hover {
+  background: #0d2d63;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(10, 35, 81, 0.4);
+}
+
+.btn-view-more:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(10, 35, 81, 0.3);
+}
+
+@media (max-width: 640px) {
+  .btn-view-more {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
 
 /* --- 7. CV SECTION --- */
 .cv-section { background: linear-gradient(135deg, var(--primary) 0%, #1a3a7a 100%); color: white; padding: 80px 5%; text-align: center; border-radius: 30px; margin: 40px 5%; }

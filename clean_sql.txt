@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS ticker_messages (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  message TEXT NOT NULL,
+  priority INTEGER NOT NULL DEFAULT 1,
+  is_active BOOLEAN DEFAULT true,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+INSERT INTO ticker_messages (message, priority, is_active) VALUES
+  ('Welcome to Fast Portal - Your Gateway to Global Opportunities!', 1, true),
+  ('New job opportunities available in UAE, Saudi Arabia, and UK!', 2, true),
+  ('Apply now for premium visa services and travel assistance!', 3, true);

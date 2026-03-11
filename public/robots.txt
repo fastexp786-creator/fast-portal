@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://fast-portal.vercel.app/sitemap.xml
+Sitemap: https://fastjobcareer.com/sitemap.xml
 
 # Block unnecessary paths
 Disallow: /api/

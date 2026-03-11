@@ -27,10 +27,22 @@ export default function JobsSection({
       setLoading(true);
       setError(null);
       try {
-        const { data, error: fetchError } = await supabase
+        let query = supabase
           .from(JOBS_TABLE)
           .select("*")
-          .order("created_at", { ascending: false });
+          .eq('status', 'active');
+
+        // Apply search filters if provided
+        if (filterTitle) {
+          const searchLower = filterTitle.toLowerCase();
+          query = query.or(`title.ilike.%${searchLower}%,company.ilike.%${searchLower}%,category.ilike.%${searchLower}%`);
+        }
+
+        if (filterCountry) {
+          query = query.eq('country', filterCountry);
+        }
+
+        const { data, error: fetchError } = await query.order("created_at", { ascending: false });
 
         if (fetchError) throw fetchError;
         setJobs(data || []);
@@ -42,11 +54,11 @@ export default function JobsSection({
       }
     }
     loadJobs();
-  }, []);
+  }, [filterTitle, filterCountry, triggerFilter]);
 
   useEffect(() => {
     if (jobs.length === 0) return;
-    // Static latest feed: ignore external filters and show newest jobs
+    // Apply filters and show results
     setDisplayJobs(showAll ? jobs : jobs.slice(0, 4));
   }, [jobs, showAll]);
 

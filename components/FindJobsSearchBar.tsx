@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+import { JOBS_TABLE } from "@/lib/jobs-schema";
 import type { SearchFilters } from "./SearchBar";
 
 interface FindJobsSearchBarProps {
@@ -9,13 +11,6 @@ interface FindJobsSearchBarProps {
   initialCountry?: string;
   initialCategory?: string;
 }
-
-const COUNTRIES = [
-  { group: "Gulf / GCC", options: ["United Arab Emirates", "Saudi Arabia", "Qatar", "Oman", "Kuwait", "Bahrain"] },
-  { group: "Other", options: ["Pakistan", "United Kingdom", "Poland", "Canada", "Germany", "Romania"] },
-];
-
-const CATEGORIES = ["All", "USA Jobs", "UK Jobs", "Gulf Jobs", "India Jobs", "Pakistan Jobs", "Malaysia Jobs"];
 
 export default function FindJobsSearchBar({
   onSearch,
@@ -31,6 +26,59 @@ export default function FindJobsSearchBar({
   const [province, setProvince] = useState("");
   const [city, setCity] = useState("");
   const [area, setArea] = useState("");
+  const [availableCountries, setAvailableCountries] = useState<string[]>([]);
+  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
+  const [availableCities, setAvailableCities] = useState<string[]>([]);
+  const [showCitySuggestions, setShowCitySuggestions] = useState(false);
+  const [filteredCities, setFilteredCities] = useState<string[]>([]);
+
+  // Load real data for dropdowns
+  useEffect(() => {
+    async function loadFilterData() {
+      try {
+        const { data, error } = await supabase
+          .from(JOBS_TABLE)
+          .select('country, category, location')
+          .eq('status', 'active');
+        
+        if (error) throw error;
+        
+        const jobs = data || [];
+        const uniqueCountries = [...new Set(jobs.map(job => job.country).filter(Boolean))].sort();
+        const uniqueCategories = [...new Set(jobs.map(job => job.category).filter(Boolean))].sort();
+        const uniqueCities = [...new Set(jobs.map(job => job.location).filter(Boolean))].sort();
+        
+        setAvailableCountries(uniqueCountries);
+        setAvailableCategories(uniqueCategories);
+        setAvailableCities(uniqueCities);
+      } catch (err) {
+        console.error('Error loading filter data:', err);
+      }
+    }
+    loadFilterData();
+  }, []);
+
+  // City auto-complete
+  useEffect(() => {
+    if (city.length > 0 && availableCities.length > 0) {
+      const filtered = availableCities.filter(cityName => 
+        cityName.toLowerCase().includes(city.toLowerCase())
+      ).slice(0, 5);
+      setFilteredCities(filtered);
+      setShowCitySuggestions(true);
+    } else {
+      setShowCitySuggestions(false);
+    }
+  }, [city, availableCities]);
+
+  const handleCityChange = (value: string) => {
+    setCity(value);
+  };
+
+  const handleCitySelect = (selectedCity: string) => {
+    setCity(selectedCity);
+    setShowCitySuggestions(false);
+  };
 
   const handleSearch = () => {
     const countryVal = country === "OTHER" ? manualCountry : country;
@@ -44,7 +92,6 @@ export default function FindJobsSearchBar({
     };
     onSearch(filters);
   };
-
   return (
     <div className="find-jobs-search-card">
       <div
@@ -77,12 +124,8 @@ export default function FindJobsSearchBar({
             style={{ width: "100%", display: showManualCountry ? "none" : "block" }}
           >
             <option value="">Select Location</option>
-            {COUNTRIES.map((g) => (
-              <optgroup key={g.group} label={g.group}>
-                {g.options.map((o) => (
-                  <option key={o} value={o}>{o}</option>
-                ))}
-              </optgroup>
+            {availableCountries.map((countryName) => (
+              <option key={countryName} value={countryName}>{countryName}</option>
             ))}
             <option value="OTHER">--- Other ---</option>
           </select>
@@ -106,8 +149,9 @@ export default function FindJobsSearchBar({
             onChange={(e) => setCategory(e.target.value)}
             style={{ width: "100%", cursor: "pointer" }}
           >
-            {CATEGORIES.map((c) => (
-              <option key={c} value={c === "All" ? "" : c}>{c}</option>
+            <option value="">All Categories</option>
+            {availableCategories.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
             ))}
           </select>
         </div>
@@ -122,15 +166,34 @@ export default function FindJobsSearchBar({
             style={{ width: "100%" }}
           />
         </div>
-        <div className="search-field">
+        <div className="search-field" style={{ position: "relative" }}>
           <i className="fas fa-city" />
           <input
             type="text"
             placeholder="City"
             value={city}
-            onChange={(e) => setCity(e.target.value)}
+            onChange={(e) => handleCityChange(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSearch();
+              if (e.key === "Escape") setShowCitySuggestions(false);
+            }}
             style={{ width: "100%" }}
           />
+          {showCitySuggestions && filteredCities.length > 0 && (
+            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 max-h-40 overflow-y-auto">
+              {filteredCities.map((cityName, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => handleCitySelect(cityName)}
+                  className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50 transition-colors flex items-center gap-2"
+                >
+                  <i className="fas fa-map-marker-alt text-gray-400 text-xs"></i>
+                  <span className="text-gray-700">{cityName}</span>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         <div className="search-field">
           <i className="fas fa-street-view" />

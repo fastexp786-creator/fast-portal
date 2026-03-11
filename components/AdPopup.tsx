@@ -27,7 +27,7 @@ export default function AdPopup() {
           alt="Recruitment"
           width={500}
           height={160}
-          style={{ width: "100%", height: "160px", objectFit: "cover" }}
+          style={{ width: "100%", height: "auto", maxHeight: "160px", objectFit: "cover" }}
         />
         <div style={{ padding: "25px" }}>
           <h3>SPECIAL RECRUITMENT!</h3>
