@@ -1,28 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
-import { Coins, Globe2 } from "lucide-react";
+import { Coins } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-type Language = "en" | "ur" | "ar";
 type Currency = "USD" | "PKR" | "AED";
 
 export function TopBar() {
   const t = useTranslations("header");
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newLocale = event.target.value as Language;
-    
-    // Extract the current path without the locale
-    const pathWithoutLocale = pathname.replace(/^\/(en|ur|ar)/, '');
-    
-    // Redirect to the new locale with the same path
-    router.push(`/${newLocale}${pathWithoutLocale}`);
-  };
 
   const handleCurrencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newCurrency = event.target.value as Currency;
@@ -31,7 +16,7 @@ export function TopBar() {
   };
 
   return (
-    <div className="top-bar hidden md:flex">
+    <div className="top-bar flex">
       <div className="social-icons-top flex">
         <a
           href="https://www.facebook.com/FastJobCareer/"
@@ -63,18 +48,6 @@ export function TopBar() {
         </a>
       </div>
       <div className="flex items-center justify-center gap-3 text-[11px]">
-        <span className="inline-flex items-center gap-1 rounded-full bg-[#0b1f3f] px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-amber-300">
-          <Globe2 className="h-3 w-3" />
-          <select
-            defaultValue="en"
-            onChange={handleLanguageChange}
-            className="bg-transparent text-amber-300 outline-none cursor-pointer"
-          >
-            <option value="en">EN</option>
-            <option value="ur">UR</option>
-            <option value="ar">AR</option>
-          </select>
-        </span>
         <span className="inline-flex items-center gap-1 rounded-full bg-[#0b1f3f] px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-amber-300">
           <Coins className="h-3 w-3" />
           <select
@@ -110,7 +83,7 @@ export default function Header() {
             Fast <span>Job Career</span>
           </span>
         </Link>
-        <nav className="nav-pages flex flex-nowrap items-center gap-4 overflow-x-auto whitespace-nowrap md:gap-6">
+        <nav className="nav-pages hidden md:flex flex-nowrap items-center gap-4 overflow-x-auto whitespace-nowrap md:gap-6">
           <Link href="/" className="px-1 py-2 text-sm md:text-base">{t("home")}</Link>
           <Link href="/find-jobs" className="px-1 py-2 text-sm md:text-base">{t("jobs")}</Link>
           <Link href="/travel" className="px-1 py-2 text-sm md:text-base">{t("travel")}</Link>

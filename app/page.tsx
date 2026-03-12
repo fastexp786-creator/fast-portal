@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/constants";
-import HomeClient from "@/components/HomeClient";
+import EnhancedHomeClient from "@/components/EnhancedHomeClient";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s | Fast Portal",
   },
   description:
-    "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more. Connect with global opportunities and travel worldwide.",
+    "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more. AI-powered job matching, advanced filters, mobile swipe interface, and personalized job alerts.",
   keywords: [
     "jobs",
     "career",
@@ -26,6 +26,9 @@ export const metadata: Metadata = {
     "UK jobs",
     "Europe jobs",
     "work visa",
+    "AI job matching",
+    "mobile jobs",
+    "job alerts"
   ],
   authors: [{ name: "Fast Portal" }],
   creator: "Fast Portal",
@@ -37,14 +40,14 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: "Fast Portal",
     title: "Fast Portal | Jobs, Travel & Services Platform",
-    description: "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more.",
+    description: "AI-powered job matching, advanced filters, and mobile swipe interface",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: "Fast Portal | Jobs, Travel & Services Platform",
-    description: "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more.",
+    description: "AI-powered job matching, advanced filters, and mobile swipe interface",
   },
   robots: {
     index: true,
@@ -64,7 +67,7 @@ export default function Home() {
     <>
       <OrganizationJsonLd />
       <WebSiteJsonLd />
-      <HomeClient />
+      <EnhancedHomeClient />
     </>
   );
 }

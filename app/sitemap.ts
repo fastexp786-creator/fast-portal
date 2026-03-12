@@ -10,6 +10,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/find-jobs`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 },
     { url: `${SITE_URL}/jobs`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 },
     { url: `${SITE_URL}/companies`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 },
+    { url: `${SITE_URL}/apply`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 },
+    { url: `${SITE_URL}/popular-jobs`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.8 },
+    { url: `${SITE_URL}/remote-jobs`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.8 },
+    { url: `${SITE_URL}/jobs-by-country`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.8 },
+    { url: `${SITE_URL}/jobs-by-city`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.8 },
+    { url: `${SITE_URL}/jobs-by-industry`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.8 },
+    { url: `${SITE_URL}/jobs-by-airport`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.8 },
     
     // Travel services
     { url: `${SITE_URL}/travel`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.8 },

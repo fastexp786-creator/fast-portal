@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "deploy": "vercel --prod",
     "scrape:njp": "node scripts/scrape_njp.mjs",
     "scrape:adzuna": "node scripts/scrape_adzuna.mjs"
   },

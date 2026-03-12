@@ -11,26 +11,26 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Fast Job Career | Jobs, Travel & Services Platform",
-    template: "%s | Fast Job Career",
+    default: "Fast Portal | Jobs, Travel & Services Platform",
+    template: "%s | Fast Portal",
   },
   description:
-    "Fast Job Career - Your one-stop platform for jobs, travel services, air tickets, visas, and more. Connect with global opportunities and travel worldwide.",
-  keywords: "jobs, travel, air tickets, visa services, career portal, travel booking, job search, flights, Fast Job Career",
-  authors: [{ name: "Fast Job Career" }],
-  creator: "Fast Job Career",
-  publisher: "Fast Job Career",
+    "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more. Connect with global opportunities and travel worldwide.",
+  keywords: "jobs, travel, air tickets, visa services, career portal, travel booking, job search, flights, Fast Portal",
+  authors: [{ name: "Fast Portal" }],
+  creator: "Fast Portal",
+  publisher: "Fast Portal",
   openGraph: {
-    siteName: "Fast Job Career",
+    siteName: "Fast Portal",
     type: "website",
     locale: "en_US",
-    title: "Fast Job Career | Jobs, Travel & Services Platform",
-    description: "Fast Job Career - Your one-stop platform for jobs, travel services, air tickets, visas, and more.",
+    title: "Fast Portal | Jobs, Travel & Services Platform",
+    description: "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fast Job Career | Jobs, Travel & Services Platform",
-    description: "Fast Job Career - Your one-stop platform for jobs, travel services, air tickets, visas, and more.",
+    title: "Fast Portal | Jobs, Travel & Services Platform",
+    description: "Fast Portal - Your one-stop platform for jobs, travel services, air tickets, visas, and more.",
   },
   robots: {
     index: true,
@@ -76,7 +76,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Fast Job Career",
+              name: "Fast Portal",
               description: "Your one-stop platform for jobs, travel services, air tickets, visas, and more",
               url: SITE_URL,
               potentialAction: {
@@ -86,7 +86,7 @@ export default function RootLayout({
               },
               publisher: {
                 "@type": "Organization",
-                name: "Fast Job Career",
+                name: "Fast Portal",
                 url: SITE_URL,
                 logo: {
                   "@type": "ImageObject",
@@ -106,7 +106,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "Fast Job Career",
+              name: "Fast Portal",
               description: "Leading platform for jobs, travel services, and global opportunities",
               url: SITE_URL,
               logo: {
@@ -138,7 +138,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Fast Job Career",
+              name: "Fast Portal",
               url: SITE_URL,
               mainEntity: {
                 "@type": "ItemList",
@@ -147,11 +147,11 @@ export default function RootLayout({
                   {
                     "@type": "JobPosting",
                     title: "Various Job Opportunities",
-                    description: "Find your dream job with Fast Job Career",
+                    description: "Find your dream job with Fast Portal",
                     employmentType: "FULL_TIME",
                     hiringOrganization: {
                       "@type": "Organization",
-                      name: "Fast Job Career",
+                      name: "Fast Portal",
                     },
                   }
                 ],

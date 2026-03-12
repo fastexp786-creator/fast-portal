@@ -48,8 +48,60 @@ body.dark-mode .stat-card, body.dark-mode .testimonial-card, body.dark-mode .con
 }
 
 * { box-sizing: border-box; }
-body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #FFFFFF; color: var(--text-color); line-height: 1.6; scroll-behavior: smooth; transition: 0.3s; overflow-x: hidden; }
-body { color: #1A1A1A !important; background: #FFFFFF !important; }
+body { 
+  margin: 0; 
+  font-family: 'Segoe UI', Arial, sans-serif; 
+  background: #FFFFFF; 
+  color: var(--text-color); 
+  line-height: 1.6; 
+  scroll-behavior: smooth; 
+  transition: 0.3s; 
+  overflow-x: hidden; 
+  /* Mobile optimizations */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body { 
+  color: #1A1A1A !important; 
+  background: #FFFFFF !important; 
+}
+
+/* Mobile-first responsive typography */
+@media (max-width: 768px) {
+  body { font-size: 16px; }
+  h1 { font-size: 1.8rem; line-height: 1.3; }
+  h2 { font-size: 1.5rem; line-height: 1.3; }
+  h3 { font-size: 1.3rem; line-height: 1.3; }
+  p { font-size: 1rem; line-height: 1.6; }
+}
+
+/* Touch-friendly buttons on mobile */
+@media (max-width: 768px) {
+  button, .btn, input[type="button"], input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+  
+  /* Better spacing for touch */
+  .container, .max-w-7xl {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  
+  /* Improved mobile navigation */
+  .mobile-menu {
+    display: block;
+  }
+  
+  .desktop-menu {
+    display: none;
+  }
+}
 
 /* Hide horizontal scrollbars where applied */
 .scrollbar-hide {
@@ -754,8 +806,9 @@ option { color: #333; background: #fff; }
   /* Hide mobile-only noisy UI elements */
   .toggle-btn-container { display: none !important; }
   .social-sidebar { display: none !important; }
-  .social-icons-top { display: none !important; }
-  .auth-btns { display: none !important; }
+  /* Keep top bar elements visible on mobile */
+  .social-icons-top { display: flex !important; }
+  .auth-btns { display: flex !important; }
   .top-email { display: none !important; }
   html, body { overflow-x: hidden; }
 }
