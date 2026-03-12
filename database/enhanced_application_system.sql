@@ -4,7 +4,7 @@
 CREATE OR REPLACE FUNCTION generate_tracking_id()
 RETURNS TEXT AS $$
 BEGIN
-    RETURN 'APP-' || EXTRACT(EPOCH FROM NOW())::BIGINT || '-' || upper(substring(md5(random()::text), 1, 6));
+    RETURN 'APP-'::TEXT || EXTRACT(EPOCH FROM NOW())::BIGINT::TEXT || '-'::TEXT || upper(substring(md5(random()::text), 1, 6));
 END;
 $$ LANGUAGE plpgsql;
 
